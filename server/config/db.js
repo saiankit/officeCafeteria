@@ -17,6 +17,7 @@ function connectDB() {
     })
     .catch((err) => {
       console.log('DB Connection Failed');
+      console.log(err.reason);
     });
 }
 

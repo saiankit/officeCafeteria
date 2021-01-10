@@ -7,12 +7,22 @@ router.post('/', (req, res) => {
   const userToSave = User(req.body);
   userToSave
     .save()
-    .then((item) => {
-      res.send('item saved to database');
+    .then((user) => {
+      res.status(201).send('user saved to database');
     })
     .catch((err) => {
       res.status(400).send(`unable to save to database ${err}`);
     });
+});
+
+router.get('/', (req, res) => {
+  User.find((error, items) => {
+    if (error) {
+      res.status(500).send(error);
+      return;
+    }
+    res.send(items[0].name);
+  });
 });
 
 module.exports = router;

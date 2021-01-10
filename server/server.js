@@ -7,13 +7,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const connectDB = require('./config/db.js');
-const userRoute = require('./routes/users.js');
+const usersRoute = require('./routes/users.js');
 
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
-app.use('/users', userRoute);
+app.use('/users', usersRoute);
 
 const PORT = process.env.PORT || 3000;
 connectDB();
