@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:officecafeteria/providers/categoriesProvider.dart';
 import 'package:officecafeteria/screens/detailScreen.dart';
+import 'package:officecafeteria/screens/shoppingCartScreen.dart';
 import 'package:provider/provider.dart';
 import '../utilities/colors.dart';
 import '../models/product.dart';
@@ -38,12 +39,19 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconBtnWithCounter(
             svgSrc: "assets/shopping-bag.svg",
-            press: () {},
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ShoppingCartScreen(),
+                ),
+              );
+            },
             numOfitem: 13,
           ),
         ],
         title: Text(
-          "Hello Sai Ankit",
+          "Hello, Sai Ankit",
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: false,
@@ -55,12 +63,12 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               CategoryList(),
               categories.categoryIndex == 0
-                  ? ProductsList(list: products)
+                  ? ProductsList(list: food)
                   : categories.categoryIndex == 1
-                      ? ProductsList(list: bevarages)
+                      ? ProductsList(list: snacks)
                       : categories.categoryIndex == 2
-                          ? ProductsList(list: icecreams)
-                          : ProductsList(list: cakes)
+                          ? ProductsList(list: bevarages)
+                          : ProductsList(list: icecreamsAndCakes)
             ],
           ),
         ),
@@ -174,7 +182,7 @@ class CategoryList extends StatefulWidget {
 
 class _CategoryListState extends State<CategoryList> {
   int selectedIndex = 1;
-  List categories = ['All', 'Bevarages', 'Icecreams', 'Cakes'];
+  List categories = ['Food', 'Snacks', 'Bevarages', 'Icecreams & Cakes'];
   @override
   Widget build(BuildContext context) {
     return Consumer<CategoriesProvider>(
@@ -201,7 +209,7 @@ class _CategoryListState extends State<CategoryList> {
               decoration: BoxDecoration(
                 color:
                     index == selectedIndex ? Colors.white : Colors.transparent,
-                borderRadius: BorderRadius.circular(6),
+                borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
                 categories[index],

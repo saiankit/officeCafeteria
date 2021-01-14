@@ -52,7 +52,7 @@ List<Product> bevarages = [
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
   ),
 ];
-List<Product> icecreams = [
+List<Product> icecreamsAndCakes = [
   Product(
     id: 14,
     price: 39,
@@ -93,9 +93,6 @@ List<Product> icecreams = [
     description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
   ),
-];
-
-List<Product> cakes = [
   Product(
     id: 19,
     price: 68,
@@ -117,6 +114,108 @@ List<Product> cakes = [
     price: 39,
     title: "Muffin",
     image: "assets/muffin.svg",
+    description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
+  ),
+];
+
+List<Product> food = [
+  Product(
+    id: 22,
+    price: 39,
+    title: "Chicken Hamburger",
+    image: "assets/hamburger.svg",
+    description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
+  ),
+  Product(
+    id: 23,
+    price: 39,
+    title: "Pizza",
+    image: "assets/pizza.svg",
+    description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
+  ),
+  Product(
+    id: 24,
+    price: 39,
+    title: "Spaghetti",
+    image: "assets/spaghetti.svg",
+    description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
+  ),
+  Product(
+    id: 25,
+    price: 39,
+    title: "Sandwich",
+    image: "assets/sandwich.svg",
+    description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
+  ),
+  Product(
+    id: 26,
+    price: 39,
+    title: "Grilled Sandwich",
+    image: "assets/grilled-sandwich.svg",
+    description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
+  ),
+  Product(
+    id: 27,
+    price: 39,
+    title: "Hot Dog",
+    image: "assets/hot-dog.svg",
+    description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
+  ),
+  Product(
+    id: 28,
+    price: 39,
+    title: "Noodles",
+    image: "assets/noodles.svg",
+    description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
+  ),
+  Product(
+    id: 29,
+    price: 39,
+    title: "Chicken Nuggets",
+    image: "assets/nuggets.svg",
+    description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
+  ),
+];
+
+List<Product> snacks = [
+  Product(
+    id: 30,
+    price: 30,
+    title: "Popcorn",
+    image: "assets/popcorn.svg",
+    description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
+  ),
+  Product(
+    id: 31,
+    price: 39,
+    title: "French Fries",
+    image: "assets/french-fries.svg",
+    description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
+  ),
+  Product(
+    id: 32,
+    price: 56,
+    title: "Cashew Bowl",
+    image: "assets/cashew.svg",
+    description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
+  ),
+  Product(
+    id: 33,
+    price: 39,
+    title: "Vegetable Salad",
+    image: "assets/salad.svg",
     description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
   ),
