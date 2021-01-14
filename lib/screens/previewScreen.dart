@@ -37,7 +37,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
         backgroundColor: AppColors.secondaryColor,
       ),
       body: Builder(
-        builder: (ctx) => SingleChildScrollView(
+        builder: (context) => SingleChildScrollView(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

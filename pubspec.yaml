@@ -1,5 +1,5 @@
 name: officecafeteria
-description: A new Flutter project.
+description: App to cater user registration and Pre-booking for Office Cafetaria.
 
 publish_to: 'none'
 
@@ -15,8 +15,8 @@ dependencies:
   http:
   cupertino_icons: ^1.0.0
   flutter_svg:
-  overlay_support:
   blobs:
+  provider:
 
 dev_dependencies:
   flutter_test:
