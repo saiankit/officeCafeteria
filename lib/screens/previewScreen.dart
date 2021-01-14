@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:officecafeteria/screens/homeScreen.dart';
+import 'package:officecafeteria/services/users/postUser.dart';
 import 'package:officecafeteria/utilities/colors.dart';
 
 class PreviewScreen extends StatefulWidget {
@@ -51,7 +52,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
                           padding: const EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
                             color: AppColors.orangeColor,
-                            borderRadius: BorderRadius.circular(30.0),
+                            borderRadius: BorderRadius.circular(20.0),
                           ),
                           height: size.height * 0.25,
                           width: size.width * 0.75,
@@ -73,14 +74,16 @@ class _PreviewScreenState extends State<PreviewScreen> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
+                                    CircleAvatar(
+                                      radius: 40.0,
+                                      child: SvgPicture.asset(
+                                          'assets/profilePic.svg'),
+                                    ),
                                     Column(
                                       children: [
-                                        CircleAvatar(
-                                          radius: 40.0,
-                                          child: SvgPicture.asset(
-                                              'assets/profilePic.svg'),
-                                        ),
                                         Text(
                                           widget.name,
                                           style: TextStyle(
@@ -106,7 +109,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
                                           ),
                                         ),
                                       ],
-                                    ),
+                                    )
                                   ],
                                 ),
                               ),
@@ -120,7 +123,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
                           padding: const EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
                             color: AppColors.orangeColor,
-                            borderRadius: BorderRadius.circular(30.0),
+                            borderRadius: BorderRadius.circular(20.0),
                           ),
                           height: size.height * 0.1,
                           width: size.width * 0.75,
@@ -159,39 +162,18 @@ class _PreviewScreenState extends State<PreviewScreen> {
                           : SizedBox(
                               height: 300.0,
                               width: 300.0,
-                              child: Image.file(widget.imagePath),
+                              child: Image.file(
+                                widget.imagePath,
+                              ),
                             ),
                     ],
                   ),
-                  FlatButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomeScreen(),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      height: 60,
-                      width: 200,
-                      decoration: BoxDecoration(
-                        color: AppColors.buttonColor,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "SUBMIT",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
+                  SubmitUserData(
+                    name: widget.name,
+                    organization: widget.organization,
+                    employeeId: widget.employeeId,
+                    phoneNumber: widget.phoneNumber,
+                    email: widget.email,
                   ),
                 ],
               ),
@@ -203,9 +185,64 @@ class _PreviewScreenState extends State<PreviewScreen> {
   }
 }
 
-// postUser(
-//     name: name,
-//     organization: oraganisationName,
-//     employeeId: employeeID,
-//     phoneNumber: mobileNumber,
-//     email: email);
+class SubmitUserData extends StatefulWidget {
+  final String name;
+  final String organization;
+  final String employeeId;
+  final int phoneNumber;
+  final String email;
+  final File imagePath;
+
+  const SubmitUserData(
+      {this.name,
+      this.organization,
+      this.employeeId,
+      this.phoneNumber,
+      this.email,
+      this.imagePath});
+  @override
+  _SubmitUserDataState createState() => _SubmitUserDataState();
+}
+
+class _SubmitUserDataState extends State<SubmitUserData> {
+  @override
+  Widget build(BuildContext context) {
+    return FlatButton(
+      onPressed: () {
+        Navigator.pop(context);
+        Navigator.pop(context);
+        // postUser(
+        //   name: widget.name,
+        //   organization: widget.organization,
+        //   employeeId: widget.employeeId,
+        //   phoneNumber: widget.phoneNumber,
+        //   email: widget.email,
+        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(),
+          ),
+        );
+      },
+      child: Container(
+        height: 60,
+        width: 200,
+        decoration: BoxDecoration(
+          color: AppColors.buttonColor,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Center(
+          child: Text(
+            "SUBMIT",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 25.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

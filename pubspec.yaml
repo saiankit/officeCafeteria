@@ -17,6 +17,7 @@ dependencies:
   flutter_svg:
   blobs:
   provider:
+  google_fonts:
 
 dev_dependencies:
   flutter_test:
