@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:officecafeteria/providers/productCount.dart';
+import 'package:officecafeteria/screens/homeScreen.dart';
 import 'package:officecafeteria/utilities/colors.dart';
+import 'package:provider/provider.dart';
 import '../models/product.dart';
 
 const kBackgroundColor = Color(0xFFF1EFF1);
@@ -129,6 +132,27 @@ class Body extends StatelessWidget {
             ),
           ),
           Spacer(),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Consumer<ProductCount>(
+                  builder: (context, count, _) => Text(
+                    '\₹ ${product.price * count.productCount}',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: kSecondaryColor,
+                    ),
+                  ),
+                ),
+                CartCounter(),
+              ],
+            ),
+          ),
+          Spacer(),
           ChatAndAddToCart(),
         ],
       ),
@@ -149,7 +173,7 @@ class ProductPoster extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: kDefaultPadding),
+      margin: EdgeInsets.symmetric(vertical: 20),
       height: size.width * 0.65,
       child: Stack(
         alignment: Alignment.bottomCenter,
@@ -184,27 +208,91 @@ class ChatAndAddToCart extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(kDefaultPadding),
       padding: EdgeInsets.symmetric(
-        horizontal: kDefaultPadding,
-        vertical: kDefaultPadding / 2,
+        horizontal: 20,
+        vertical: 10,
       ),
       decoration: BoxDecoration(
-        color: AppColors.skinColor,
+        color: Color(0xffe37f70),
         borderRadius: BorderRadius.circular(30),
       ),
-      child: Row(
-        children: <Widget>[
-          FlatButton.icon(
-            onPressed: () {},
-            icon: SvgPicture.asset(
+      child: FlatButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SvgPicture.asset(
               "assets/food_tray.svg",
               height: 30.0,
             ),
-            label: Text(
+            Text(
               "Add to Tray",
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20.0,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CartCounter extends StatefulWidget {
+  @override
+  _CartCounterState createState() => _CartCounterState();
+}
+
+class _CartCounterState extends State<CartCounter> {
+  int numOfItems = 1;
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<ProductCount>(
+      builder: (context, count, _) => Row(
+        children: <Widget>[
+          buildOutlineButton(
+            icon: Icons.remove,
+            press: () {
+              setState(() {
+                numOfItems--;
+              });
+              count.decrementCounter();
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              // if our item is less  then 10 then  it shows 01 02 like that
+              count.productCount.toString().padLeft(2, "0"),
+              style: Theme.of(context).textTheme.headline6,
             ),
           ),
+          buildOutlineButton(
+              icon: Icons.add,
+              press: () {
+                setState(() {
+                  numOfItems++;
+                });
+                count.updateCounter();
+              }),
         ],
+      ),
+    );
+  }
+
+  SizedBox buildOutlineButton({IconData icon, Function press}) {
+    return SizedBox(
+      width: 40,
+      height: 32,
+      child: OutlineButton(
+        padding: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(13),
+        ),
+        onPressed: press,
+        child: Icon(icon),
       ),
     );
   }

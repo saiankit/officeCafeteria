@@ -95,7 +95,7 @@ class ProductCard extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(
         horizontal: 20,
-        vertical: 20 / 2,
+        vertical: 10,
       ),
       height: 160,
       child: InkWell(
@@ -152,7 +152,7 @@ class ProductCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
                         product.title,
-                        style: Theme.of(context).textTheme.button,
+                        style: Theme.of(context).textTheme.headline6,
                       ),
                     ),
                     Spacer(),
@@ -160,7 +160,7 @@ class ProductCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
                         "\$${product.price}",
-                        style: Theme.of(context).textTheme.button,
+                        style: Theme.of(context).textTheme.subtitle1,
                       ),
                     ),
                     Spacer(),
