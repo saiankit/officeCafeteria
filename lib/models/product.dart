@@ -17,7 +17,7 @@ List<Product> products = [
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
   ),
   Product(
-    id: 3,
+    id: 2,
     price: 39,
     title: "Chicken Hamburger",
     image: "assets/hamburger.svg",
@@ -33,7 +33,7 @@ List<Product> products = [
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
   ),
   Product(
-    id: 3,
+    id: 4,
     price: 39,
     title: "Chocolate Sundae",
     image: "assets/choclate-sundae.svg",
@@ -41,7 +41,7 @@ List<Product> products = [
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
   ),
   Product(
-    id: 3,
+    id: 5,
     price: 39,
     title: "Grilled Sandwich",
     image: "assets/grilled-sandwich.svg",
@@ -49,7 +49,7 @@ List<Product> products = [
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
   ),
   Product(
-    id: 3,
+    id: 6,
     price: 39,
     title: "Hot Dog",
     image: "assets/hot-dog.svg",
@@ -57,7 +57,7 @@ List<Product> products = [
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
   ),
   Product(
-    id: 3,
+    id: 7,
     price: 39,
     title: "Noodles",
     image: "assets/noodles.svg",
@@ -65,7 +65,7 @@ List<Product> products = [
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
   ),
   Product(
-    id: 3,
+    id: 8,
     price: 39,
     title: "Chicken Nuggets",
     image: "assets/nuggets.svg",

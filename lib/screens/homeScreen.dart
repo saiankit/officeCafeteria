@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:officecafeteria/providers/categoriesProvider.dart';
+import 'package:officecafeteria/screens/detailScreen.dart';
 import 'package:provider/provider.dart';
 import '../utilities/colors.dart';
 import '../models/product.dart';
@@ -227,18 +228,18 @@ class _ProductsListState extends State<ProductsList> {
     return Expanded(
       child: ListView.builder(
         itemCount: widget.list.length,
-        itemBuilder: (context, index) => ProductCard(
+        itemBuilder: (context, index) => ProductCsard(
           itemIndex: index,
           product: widget.list[index],
           press: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => DetailsScreen(
-            //       product: products[index],
-            //     ),
-            //   ),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailsScreen(
+                  product: widget.list[index],
+                ),
+              ),
+            );
           },
         ),
       ),

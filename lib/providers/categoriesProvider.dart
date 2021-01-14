@@ -12,7 +12,7 @@ class CategoriesProvider extends ChangeNotifier {
 
 List<Product> bevarages = [
   Product(
-    id: 1,
+    id: 9,
     price: 56,
     title: "Espresso Coffee",
     image: "assets/coffee.svg",
@@ -20,7 +20,7 @@ List<Product> bevarages = [
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
   ),
   Product(
-    id: 3,
+    id: 10,
     price: 39,
     title: "Hot tea",
     image: "assets/hot-tea.svg",
@@ -28,7 +28,7 @@ List<Product> bevarages = [
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
   ),
   Product(
-    id: 3,
+    id: 11,
     price: 39,
     title: "Cola",
     image: "assets/cola.svg",
@@ -36,7 +36,7 @@ List<Product> bevarages = [
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
   ),
   Product(
-    id: 3,
+    id: 12,
     price: 39,
     title: "Cocktail",
     image: "assets/cocktail.svg",
@@ -44,7 +44,7 @@ List<Product> bevarages = [
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
   ),
   Product(
-    id: 3,
+    id: 13,
     price: 39,
     title: "Orange Juice",
     image: "assets/orange-juice.svg",
@@ -54,7 +54,7 @@ List<Product> bevarages = [
 ];
 List<Product> icecreams = [
   Product(
-    id: 3,
+    id: 14,
     price: 39,
     title: "Chocolate Sundae",
     image: "assets/choclate-sundae.svg",
@@ -62,7 +62,7 @@ List<Product> icecreams = [
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
   ),
   Product(
-    id: 3,
+    id: 15,
     price: 39,
     title: "Multiflavoured Stick",
     image: "assets/ice-cream (2).svg",
@@ -70,7 +70,7 @@ List<Product> icecreams = [
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
   ),
   Product(
-    id: 3,
+    id: 16,
     price: 39,
     title: "Banana Split Icecream",
     image: "assets/ice-cream.svg",
@@ -78,7 +78,7 @@ List<Product> icecreams = [
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
   ),
   Product(
-    id: 3,
+    id: 17,
     price: 39,
     title: "Soft Serve Icecream",
     image: "assets/ice-cream (4).svg",
@@ -86,7 +86,7 @@ List<Product> icecreams = [
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
   ),
   Product(
-    id: 3,
+    id: 18,
     price: 39,
     title: "Strawberry Popsicle",
     image: "assets/strawberry-popsicle.svg",
@@ -97,7 +97,7 @@ List<Product> icecreams = [
 
 List<Product> cakes = [
   Product(
-    id: 2,
+    id: 19,
     price: 68,
     title: "Pineapple Pastry",
     image: "assets/cake.svg",
@@ -105,7 +105,7 @@ List<Product> cakes = [
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
   ),
   Product(
-    id: 3,
+    id: 20,
     price: 39,
     title: "Donut",
     image: "assets/donut.svg",
@@ -113,7 +113,7 @@ List<Product> cakes = [
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
   ),
   Product(
-    id: 3,
+    id: 21,
     price: 39,
     title: "Muffin",
     image: "assets/muffin.svg",
