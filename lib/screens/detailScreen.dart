@@ -26,7 +26,7 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kPrimaryColor,
+      backgroundColor: AppColors.homeScreenColor,
       appBar: buildAppBar(context),
       body: Body(
         product: product,
@@ -36,7 +36,7 @@ class DetailsScreen extends StatelessWidget {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.secondaryColor,
+      backgroundColor: AppColors.bgColor,
       elevation: 0,
     );
   }
@@ -48,68 +48,89 @@ class Body extends StatelessWidget {
   const Body({Key key, this.product}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // it provide us total height and width
     Size size = MediaQuery.of(context).size;
-    // it enable scrolling on small devices
     return SafeArea(
       bottom: false,
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-              decoration: BoxDecoration(
-                color: kBackgroundColor,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(50),
-                  bottomRight: Radius.circular(50),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+            decoration: BoxDecoration(
+              color: AppColors.bgColor,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Center(
+                  child: Hero(
+                    tag: '${product.id}',
+                    child: ProductPoster(
+                      size: size,
+                      image: product.image,
+                    ),
+                  ),
                 ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Center(
-                    child: Hero(
-                      tag: '${product.id}',
-                      child: ProductPoster(
-                        size: size,
-                        image: product.image,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: kDefaultPadding / 2),
-                    child: Text(
-                      product.title,
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                  ),
-                  Text(
-                    '\$${product.price}',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: kSecondaryColor,
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
-                    child: Text(
-                      product.description,
-                      style: TextStyle(color: kTextLightColor),
-                    ),
-                  ),
-                  SizedBox(height: kDefaultPadding),
-                ],
+                SizedBox(height: kDefaultPadding),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 10.0,
+              horizontal: 20.0,
+            ),
+            child: Text(
+              product.title,
+              style: TextStyle(
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            ChatAndAddToCart(),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20.0,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '\₹ ${product.price}',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: kSecondaryColor,
+                  ),
+                ),
+                Text(
+                  '@ 1 unit',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: kTextLightColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: 10.0,
+              horizontal: 20.0,
+            ),
+            child: Text(
+              product.description,
+              style: TextStyle(
+                color: kTextLightColor,
+                fontSize: 18.0,
+              ),
+            ),
+          ),
+          Spacer(),
+          ChatAndAddToCart(),
+        ],
       ),
     );
   }
@@ -129,8 +150,7 @@ class ProductPoster extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: kDefaultPadding),
-      // the height of this container is 80% of our width
-      height: size.width * 0.8,
+      height: size.width * 0.65,
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: <Widget>[
@@ -168,31 +188,20 @@ class ChatAndAddToCart extends StatelessWidget {
         vertical: kDefaultPadding / 2,
       ),
       decoration: BoxDecoration(
-        color: Color(0xFFFCBF1E),
+        color: AppColors.skinColor,
         borderRadius: BorderRadius.circular(30),
       ),
       child: Row(
         children: <Widget>[
-          SvgPicture.asset(
-            "assets/icons/chat.svg",
-            height: 18,
-          ),
-          SizedBox(width: kDefaultPadding / 2),
-          Text(
-            "Chat",
-            style: TextStyle(color: Colors.white),
-          ),
-          // it will cover all available spaces
-          Spacer(),
           FlatButton.icon(
             onPressed: () {},
             icon: SvgPicture.asset(
-              "assets/icons/shopping-bag.svg",
-              height: 18,
+              "assets/food_tray.svg",
+              height: 30.0,
             ),
             label: Text(
-              "Add to Cart",
-              style: TextStyle(color: Colors.white),
+              "Add to Tray",
+              style: TextStyle(color: Colors.black),
             ),
           ),
         ],

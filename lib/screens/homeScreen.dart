@@ -228,7 +228,7 @@ class _ProductsListState extends State<ProductsList> {
     return Expanded(
       child: ListView.builder(
         itemCount: widget.list.length,
-        itemBuilder: (context, index) => ProductCsard(
+        itemBuilder: (context, index) => ProductCard(
           itemIndex: index,
           product: widget.list[index],
           press: () {
