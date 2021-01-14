@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:officecafeteria/screens/homeScreen.dart';
 import 'package:officecafeteria/services/users/postUser.dart';
 import 'package:officecafeteria/utilities/colors.dart';
@@ -29,156 +29,90 @@ class PreviewScreen extends StatefulWidget {
 class _PreviewScreenState extends State<PreviewScreen> {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColors.homeScreenColor,
       appBar: AppBar(
-        title: Text('Registration Pass'),
+        title: Text('Preview Details'),
         backgroundColor: AppColors.secondaryColor,
+        centerTitle: false,
       ),
       body: Builder(
         builder: (context) => SingleChildScrollView(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Column(
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          padding: const EdgeInsets.all(10.0),
-                          decoration: BoxDecoration(
-                            color: AppColors.orangeColor,
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          height: size.height * 0.25,
-                          width: size.width * 0.75,
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: 12.0,
-                                    width: 12.0,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 40.0,
-                                      child: SvgPicture.asset(
-                                          'assets/profilePic.svg'),
-                                    ),
-                                    Column(
-                                      children: [
-                                        Text(
-                                          widget.name,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 30.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(
-                                          widget.employeeId,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(
-                                          widget.organization,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+              ProfileDetails(
+                label: widget.name,
+                icon: "assets/user.svg",
+              ),
+              ProfileDetails(
+                label: widget.employeeId,
+                icon: "assets/touch.svg",
+              ),
+              ProfileDetails(
+                label: widget.organization,
+                icon: "assets/group.svg",
+              ),
+              ProfileDetails(
+                label: widget.phoneNumber.toString(),
+                icon: "assets/phone-call.svg",
+              ),
+              ProfileDetails(
+                label: widget.email,
+                icon: "assets/email.svg",
+              ),
+              widget.imagePath == null
+                  ? Container()
+                  : SizedBox(
+                      height: 300.0,
+                      width: 300.0,
+                      child: Image.file(
+                        widget.imagePath,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          padding: const EdgeInsets.all(10.0),
-                          decoration: BoxDecoration(
-                            color: AppColors.orangeColor,
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          height: size.height * 0.1,
-                          width: size.width * 0.75,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                widget.phoneNumber.toString(),
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                widget.email,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      widget.imagePath == null
-                          ? Container(
-                              height: 200.0,
-                              width: 200.0,
-                              decoration: BoxDecoration(
-                                color: AppColors.orangeColor,
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                            )
-                          : SizedBox(
-                              height: 300.0,
-                              width: 300.0,
-                              child: Image.file(
-                                widget.imagePath,
-                              ),
-                            ),
-                    ],
-                  ),
-                  SubmitUserData(
-                    name: widget.name,
-                    organization: widget.organization,
-                    employeeId: widget.employeeId,
-                    phoneNumber: widget.phoneNumber,
-                    email: widget.email,
-                  ),
-                ],
+                    ),
+              SubmitUserData(
+                name: widget.name,
+                organization: widget.organization,
+                employeeId: widget.employeeId,
+                phoneNumber: widget.phoneNumber,
+                email: widget.email,
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class ProfileDetails extends StatelessWidget {
+  final String label;
+  final String icon;
+
+  const ProfileDetails({Key key, this.label, this.icon}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: FlatButton(
+        padding: EdgeInsets.all(20),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        color: AppColors.previewDetailsColor,
+        onPressed: () {},
+        child: Row(
+          children: [
+            SvgPicture.asset(
+              icon,
+              color: AppColors.secondaryColor,
+              width: 22,
+            ),
+            SizedBox(width: 20),
+            Expanded(
+              child: Text(
+                this.label,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
         ),
       ),
     );

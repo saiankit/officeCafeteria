@@ -6,4 +6,5 @@ class AppColors {
   static Color skinColor = Color(0xffEEC3B9);
   static Color orangeColor = Color(0xffff8e71);
   static Color homeScreenColor = Color(0xfff7f1e6);
+  static Color previewDetailsColor = Color(0xfffceef5);
 }

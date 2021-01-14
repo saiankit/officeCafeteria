@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:officecafeteria/providers/categoriesProvider.dart';
 import 'package:officecafeteria/providers/userDataProvider.dart';
 import 'package:officecafeteria/screens/homeScreen.dart';
+import 'package:officecafeteria/screens/previewScreen.dart';
 import 'package:officecafeteria/screens/registerUser.dart';
 import 'package:officecafeteria/utilities/colors.dart';
 import 'package:provider/provider.dart';
@@ -37,8 +38,16 @@ class _MyAppState extends State<MyApp> {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         debugShowCheckedModeBanner: false,
-        home: HomeScreen(),
+        home: RegisterUser(),
       ),
     );
   }
 }
+
+//  PreviewScreen(
+//           name: "Sai Ankit",
+//           employeeId: "2019AAPS0331H",
+//           organization: "QA Team",
+//           phoneNumber: 7093732862,
+//           email: "saiankit@gmail.com",
+//         ),

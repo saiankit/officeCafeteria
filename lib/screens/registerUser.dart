@@ -22,6 +22,8 @@ class _RegisterUserState extends State<RegisterUser> {
     return Scaffold(
       backgroundColor: AppColors.homeScreenColor,
       appBar: AppBar(
+        title: Text("Office Cafetaria"),
+        centerTitle: false,
         backgroundColor: AppColors.secondaryColor,
         elevation: 0,
       ),
@@ -80,6 +82,16 @@ class _RegisterUserState extends State<RegisterUser> {
                     ),
                   ),
                 ),
+                _image == null
+                    ? Container()
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                        child: Row(
+                          children: [
+                            Text("ID Card Uploaded"),
+                          ],
+                        ),
+                      ),
                 FlatButton(
                   onPressed: () {
                     if (userData.fullName != null &&
@@ -104,20 +116,23 @@ class _RegisterUserState extends State<RegisterUser> {
                       Scaffold.of(context).showSnackBar(snackBar);
                     }
                   },
-                  child: Container(
-                    height: 60,
-                    width: 200,
-                    decoration: BoxDecoration(
-                      color: AppColors.buttonColor,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "SUBMIT",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.bold,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Container(
+                      height: 60,
+                      width: 200,
+                      decoration: BoxDecoration(
+                        color: AppColors.buttonColor,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "SUBMIT",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
