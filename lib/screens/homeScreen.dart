@@ -36,9 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: AppColors.homeScreenColor,
         elevation: 0,
         actions: [
-          IconButton(
-            icon: Icon(Icons.shopping_cart),
-            onPressed: null,
+          IconBtnWithCounter(
+            svgSrc: "assets/shopping-bag.svg",
+            press: () {},
+            numOfitem: 13,
           ),
         ],
         title: Text(
@@ -242,6 +243,71 @@ class _ProductsListState extends State<ProductsList> {
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+class IconBtnWithCounter extends StatelessWidget {
+  const IconBtnWithCounter({
+    Key key,
+    @required this.svgSrc,
+    this.numOfitem = 0,
+    @required this.press,
+  }) : super(key: key);
+
+  final String svgSrc;
+  final int numOfitem;
+  final GestureTapCallback press;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(100),
+      onTap: press,
+      child: Stack(
+        overflow: Overflow.visible,
+        children: [
+          Container(
+            padding: EdgeInsets.all(12.0),
+            height: 46,
+            width: 46,
+            decoration: BoxDecoration(
+              color: kSecondaryColor.withOpacity(0.1),
+              shape: BoxShape.circle,
+            ),
+            child: SvgPicture.asset(
+              svgSrc,
+              height: 5.0,
+              color: AppColors.secondaryColor,
+            ),
+          ),
+          if (numOfitem != 0)
+            Positioned(
+              top: 0,
+              right: 0,
+              child: Container(
+                height: 20,
+                width: 20,
+                decoration: BoxDecoration(
+                  color: Color(0xFFFF4848),
+                  shape: BoxShape.circle,
+                  border: Border.all(width: 1.5, color: Colors.white),
+                ),
+                child: Center(
+                  child: Text(
+                    "$numOfitem",
+                    style: TextStyle(
+                      fontSize: 10,
+                      height: 1,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            )
+        ],
       ),
     );
   }

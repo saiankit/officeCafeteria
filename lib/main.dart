@@ -38,16 +38,8 @@ class _MyAppState extends State<MyApp> {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         debugShowCheckedModeBanner: false,
-        home: RegisterUser(),
+        home: HomeScreen(),
       ),
     );
   }
 }
-
-//  PreviewScreen(
-//           name: "Sai Ankit",
-//           employeeId: "2019AAPS0331H",
-//           organization: "QA Team",
-//           phoneNumber: 7093732862,
-//           email: "saiankit@gmail.com",
-//         ),
