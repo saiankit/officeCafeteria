@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:officecafeteria/providers/cartProvider.dart';
 import 'package:officecafeteria/providers/categoriesProvider.dart';
 import 'package:officecafeteria/providers/productCount.dart';
 import 'package:officecafeteria/providers/userDataProvider.dart';
-import 'package:officecafeteria/screens/homeScreen/homeScreen.dart';
 import 'package:officecafeteria/utilities/colors.dart';
 import 'package:provider/provider.dart';
+import 'dart:convert' show json, base64, ascii;
 
+import 'views/screens/homeScreen/homeScreen.dart';
+import 'views/screens/loginScreen/loginScreen.dart';
+
+final secureStorage = FlutterSecureStorage();
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -40,8 +45,55 @@ class _MyAppState extends State<MyApp> {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         debugShowCheckedModeBanner: false,
-        home: HomeScreen(),
+        home: CustomAuthWrapper(),
       ),
+    );
+  }
+}
+
+class CustomAuthWrapper extends StatefulWidget {
+  @override
+  _CustomAuthWrapperState createState() => _CustomAuthWrapperState();
+}
+
+class _CustomAuthWrapperState extends State<CustomAuthWrapper> {
+  Future<String> get jwtOrEmpty async {
+    var jwt = await secureStorage.read(key: "jwt");
+    if (jwt == null) return "";
+    return jwt;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: FutureBuilder(
+          future: jwtOrEmpty,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData)
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            if (snapshot.data != "") {
+              var str = snapshot.data;
+              var jwt = str.split(".");
+
+              if (jwt.length != 3) {
+                return LoginScreen();
+              } else {
+                var payload = json.decode(
+                    ascii.decode(base64.decode(base64.normalize(jwt[1]))));
+                if (DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000)
+                    .isAfter(DateTime.now())) {
+                  return HomeScreen();
+                  // str, payload
+                } else {
+                  return LoginScreen();
+                }
+              }
+            } else {
+              return LoginScreen();
+            }
+          }),
     );
   }
 }

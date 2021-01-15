@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:officecafeteria/providers/cartProvider.dart';
+import 'package:officecafeteria/utilities/colors.dart';
 import 'package:provider/provider.dart';
 
 import '../../shoppingCartScreen/shoppingCartScreen.dart';
+
+const kSecondaryColor = Color(0xFFFFA41B);
 
 class CartIcon extends StatelessWidget {
   @override

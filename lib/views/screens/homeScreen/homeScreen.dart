@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // Providers
-import '../../providers/categoriesProvider.dart';
+import '../../../providers/categoriesProvider.dart';
 
 //Utilities
-import '../../utilities/colors.dart';
+import '../../../utilities/colors.dart';
+import '../../../data/products.dart';
 
 //Components
 import 'components/cartIcon.dart';
@@ -17,6 +18,8 @@ class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
+
+const kSecondaryColor = Color(0xFFFFA41B);
 
 class _HomeScreenState extends State<HomeScreen> {
   @override

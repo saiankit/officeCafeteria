@@ -20,7 +20,7 @@ class AddToTrayButton extends StatelessWidget {
         vertical: 10,
       ),
       decoration: BoxDecoration(
-        color: Color(0xffe37f70),
+        color: Color(0xffF56F64),
         borderRadius: BorderRadius.circular(30),
       ),
       child: Consumer<CartProvider>(

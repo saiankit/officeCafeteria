@@ -6,8 +6,10 @@ class UserDataTextField extends StatefulWidget {
   final int userDataIndex;
   final String title;
   final TextInputType type;
+  final bool isObscure;
 
-  const UserDataTextField({this.userDataIndex, this.title, this.type});
+  const UserDataTextField(
+      {this.userDataIndex, this.title, this.type, this.isObscure = false});
   @override
   _UserDataTextFieldState createState() => _UserDataTextFieldState();
 }
@@ -30,8 +32,11 @@ class _UserDataTextFieldState extends State<UserDataTextField> {
               userData.updatePhoneNumber(value);
             } else if (widget.userDataIndex == 4) {
               userData.updateEmail(value);
+            } else {
+              userData.updatePassword(value);
             }
           },
+          obscureText: widget.isObscure,
           keyboardType: widget.type,
           decoration: InputDecoration(
             labelText: widget.title,

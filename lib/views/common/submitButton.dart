@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:officecafeteria/utilities/colors.dart';
 
 class SubmitButton extends StatefulWidget {
+  final String label;
   final Function onPressed;
+  final bool flip;
 
-  const SubmitButton({Key key, this.onPressed}) : super(key: key);
+  const SubmitButton({Key key, this.onPressed, this.label, this.flip = false})
+      : super(key: key);
   @override
   _SubmitButtonState createState() => _SubmitButtonState();
 }
@@ -20,14 +23,20 @@ class _SubmitButtonState extends State<SubmitButton> {
           height: 60,
           width: 200,
           decoration: BoxDecoration(
-            color: AppColors.buttonColor,
+            color:
+                widget.flip ? AppColors.homeScreenColor : AppColors.buttonColor,
             borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+                width: 1.5,
+                color: widget.flip
+                    ? AppColors.secondaryColor
+                    : AppColors.secondaryColor),
           ),
           child: Center(
             child: Text(
-              "SUBMIT",
+              widget.label,
               style: TextStyle(
-                color: Colors.white,
+                color: widget.flip ? AppColors.secondaryColor : Colors.white,
                 fontSize: 25.0,
                 fontWeight: FontWeight.bold,
               ),

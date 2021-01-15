@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:officecafeteria/screens/homeScreen/components/productCard.dart';
-import 'package:officecafeteria/screens/productDetail/productDetailScreen.dart';
+import '../components/productCard.dart';
+import '../../productDetail/productDetailScreen.dart';
 
 class ProductsList extends StatefulWidget {
   final List list;

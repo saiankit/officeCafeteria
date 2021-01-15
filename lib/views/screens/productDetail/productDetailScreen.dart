@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:officecafeteria/providers/productCount.dart';
-import 'package:officecafeteria/screens/productDetail/components/addToTrayButton.dart';
 import 'package:officecafeteria/utilities/colors.dart';
 import 'package:provider/provider.dart';
-import '../../models/product.dart';
+import '../../../models/product.dart';
 import 'components/cardCounter.dart';
 import 'components/productPoster.dart';
+import '../productDetail/components/addToTrayButton.dart';
 
 const kSecondaryColor = Color(0xFFFFA41B);
 const kTextLightColor = Color(0xFF747474);
@@ -126,7 +126,7 @@ class Body extends StatelessWidget {
               children: [
                 Consumer<ProductCount>(
                   builder: (context, count, _) => Text(
-                    '\₹ ${product.price * count.productCount}',
+                    '₹ ${product.price * count.productCount}',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,

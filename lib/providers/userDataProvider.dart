@@ -6,6 +6,7 @@ class UserDataProvider extends ChangeNotifier {
   String employeeId;
   int phoneNumber;
   String email;
+  String password;
   updateFullName(String value) {
     fullName = value;
     notifyListeners();
@@ -28,6 +29,11 @@ class UserDataProvider extends ChangeNotifier {
 
   updateEmail(String value) {
     email = value;
+    notifyListeners();
+  }
+
+  updatePassword(String value) {
+    password = value;
     notifyListeners();
   }
 }
