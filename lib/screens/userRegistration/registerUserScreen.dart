@@ -2,11 +2,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:officecafeteria/providers/userDataProvider.dart';
-import 'package:officecafeteria/screens/previewScreen.dart';
+import 'package:officecafeteria/screens/previewScreen/previewScreen.dart';
+import 'package:officecafeteria/screens/userRegistration/components/submitButton.dart';
+import 'package:officecafeteria/screens/userRegistration/components/userDataTextField.dart';
 import 'package:officecafeteria/utilities/colors.dart';
 import 'package:provider/provider.dart';
-
-enum UserData { fullName, organizationName, employeeId, phoneNumber, email }
 
 class RegisterUser extends StatefulWidget {
   @override
@@ -92,7 +92,7 @@ class _RegisterUserState extends State<RegisterUser> {
                           ],
                         ),
                       ),
-                FlatButton(
+                SubmitButton(
                   onPressed: () {
                     if (userData.fullName != null &&
                         userData.oraganisationName != null &&
@@ -116,28 +116,7 @@ class _RegisterUserState extends State<RegisterUser> {
                       Scaffold.of(context).showSnackBar(snackBar);
                     }
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Container(
-                      height: 60,
-                      width: 200,
-                      decoration: BoxDecoration(
-                        color: AppColors.buttonColor,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "SUBMIT",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                )
+                ),
               ],
             ),
           ),
@@ -152,48 +131,5 @@ class _RegisterUserState extends State<RegisterUser> {
     setState(() {
       _image = File(pickedFile.path);
     });
-  }
-}
-
-class UserDataTextField extends StatefulWidget {
-  final int userDataIndex;
-  final String title;
-  final TextInputType type;
-
-  const UserDataTextField({this.userDataIndex, this.title, this.type});
-  @override
-  _UserDataTextFieldState createState() => _UserDataTextFieldState();
-}
-
-class _UserDataTextFieldState extends State<UserDataTextField> {
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<UserDataProvider>(
-      builder: (context, userData, _) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-        child: TextFormField(
-          onChanged: (String value) {
-            if (widget.userDataIndex == 0) {
-              userData.updateFullName(value);
-            } else if (widget.userDataIndex == 1) {
-              userData.updateOrganizationName(value);
-            } else if (widget.userDataIndex == 2) {
-              userData.updateEmployeeIdNumber(value);
-            } else if (widget.userDataIndex == 3) {
-              userData.updatePhoneNumber(value);
-            } else if (widget.userDataIndex == 4) {
-              userData.updateEmail(value);
-            }
-          },
-          keyboardType: widget.type,
-          decoration: InputDecoration(
-            labelText: widget.title,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }

@@ -2,8 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:officecafeteria/screens/homeScreen.dart';
-import 'package:officecafeteria/services/users/postUser.dart';
+import 'package:officecafeteria/screens/homeScreen/homeScreen.dart';
 import 'package:officecafeteria/utilities/colors.dart';
 
 class PreviewScreen extends StatefulWidget {

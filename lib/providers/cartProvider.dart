@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:officecafeteria/models/cartItem.dart';
 
-class Cart extends ChangeNotifier {
+List<CartItem> cartItemList = [];
+
+class CartProvider extends ChangeNotifier {
   int cartItems = 0;
-  addItemsToCart() {
+
+  addItemsToCart(CartItem cartItem) {
+    cartItemList.add(cartItem);
     cartItems++;
     notifyListeners();
   }
