@@ -87,11 +87,9 @@ class _UserDetailsState extends State<UserDetails> {
               SubmitButton(
                 label: "SUBMIT",
                 onPressed: () {
-                  if (
-                      userData.oraganisationName != null &&
+                  if (userData.oraganisationName != null &&
                       userData.phoneNumber != null &&
-                      userData.employeeId != null &&
-                      ) {
+                      userData.employeeId != null) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(

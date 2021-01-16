@@ -47,6 +47,7 @@ class _RegisterUserState extends State<RegisterUser> {
                 userDataIndex: 4,
               ),
               UserDataTextField(
+                isObscure: true,
                 title: "Password",
                 type: TextInputType.emailAddress,
                 userDataIndex: 5,

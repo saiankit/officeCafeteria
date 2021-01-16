@@ -1,4 +1,5 @@
 import 'package:http/http.dart';
+import 'package:officecafeteria/utilities/endpoints.dart';
 
 Future<String> postUser({
   String name,
@@ -6,15 +7,17 @@ Future<String> postUser({
   String employeeId,
   int phoneNumber,
   String email,
+  String password,
 }) async {
-  String urlPOSTdonor = 'http://localhost:3000/users/';
+  String urlPOSTdonor = API.createUser;
   Map<String, String> headers = {"Content-type": "application/json"};
   String json = '''{
     "name": "$name",
     "organization": "$organization",
     "employeeID": "$employeeId",
     "phoneNumber": $phoneNumber,
-    "email": "$email"
+    "email": "$email",
+    "password": "$password",
 }''';
   var response = await post(urlPOSTdonor, headers: headers, body: json);
   String statusCode = response.statusCode.toString();
