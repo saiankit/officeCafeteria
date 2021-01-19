@@ -18,6 +18,10 @@ router.post('/register', (req, res) => {
     password: req.body.password,
     registrationId: regId(),
     createdAt: Date.now(),
+    idCard: {
+      data: req.body.idCard,
+      contentType: 'image/png',
+    },
   });
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(newUser.password, salt, (error, hash) => {
@@ -45,6 +49,7 @@ router.post('/register', (req, res) => {
     });
   });
 });
+// Step 8 - the POST handler for processing the uploaded file
 
 router.get('/me', (req, res) => {
   const token = req.headers['x-access-token'];

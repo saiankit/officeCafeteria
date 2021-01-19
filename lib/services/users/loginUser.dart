@@ -2,7 +2,7 @@ import 'package:http/http.dart';
 import 'package:officecafeteria/utilities/endpoints.dart';
 import 'dart:convert';
 
-Future<String> loginUser({
+Future<List<String>> loginUser({
   String email,
   String password,
 }) async {
@@ -13,7 +13,10 @@ Future<String> loginUser({
     "password": "$password"
   }
 ''';
-  var response = await post(API.loginUser, headers: headers, body: json);
+  Response response = await post(API.loginUser, headers: headers, body: json);
+
+  LoginResponse mapped = loginResponseFromJson(response.body);
+
   String statusCode = response.statusCode.toString();
   print(loginResponseFromJson(response.body).token);
   print('User POST request Status Code : ' + statusCode);
@@ -22,7 +25,7 @@ Future<String> loginUser({
   } else {
     print('User POST Failed');
   }
-  return statusCode;
+  return [mapped.token, statusCode];
 }
 
 // To parse this JSON data, do

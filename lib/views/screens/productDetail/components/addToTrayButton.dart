@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:officecafeteria/models/cartItem.dart';
 import 'package:officecafeteria/models/product.dart';
 import 'package:officecafeteria/providers/cartProvider.dart';
+import 'package:officecafeteria/providers/productCount.dart';
 import 'package:provider/provider.dart';
 
 class AddToTrayButton extends StatelessWidget {
@@ -24,26 +25,29 @@ class AddToTrayButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(30),
       ),
       child: Consumer<CartProvider>(
-        builder: (context, cartProvider, _) => FlatButton(
-          onPressed: () {
-            cartProvider.addItemsToCart(CartItem(product, productCount));
-            Navigator.pop(context);
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SvgPicture.asset(
-                "assets/food_tray.svg",
-                height: 30.0,
-              ),
-              Text(
-                "Add to Tray",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.0,
+        builder: (context, cartProvider, _) => Consumer<ProductCount>(
+          builder: (context, count, _) => FlatButton(
+            onPressed: () {
+              cartProvider.addItemsToCart(CartItem(product, productCount));
+              count.productCount = 1;
+              Navigator.pop(context);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SvgPicture.asset(
+                  "assets/food_tray.svg",
+                  height: 30.0,
                 ),
-              ),
-            ],
+                Text(
+                  "Add to Tray",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

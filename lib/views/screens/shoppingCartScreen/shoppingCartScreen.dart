@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:officecafeteria/models/cartItem.dart';
 import 'package:officecafeteria/providers/cartProvider.dart';
+import 'package:officecafeteria/services/saveOrder.dart';
 import 'package:officecafeteria/utilities/colors.dart';
+import 'package:officecafeteria/views/screens/paymentScreen/paymentScreen.dart';
 import 'package:provider/provider.dart';
 
 import 'components/shoppingCartCard.dart';
@@ -45,12 +47,32 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
               ),
             ),
           ),
-          Column(
-            children: [
-              Spacer(),
-              CheckoutRow(),
-            ],
-          )
+          cartItemList.length != 0
+              ? Column(
+                  children: [
+                    Spacer(),
+                    CheckoutRow(),
+                  ],
+                )
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset("assets/nothing.svg"),
+                    Column(
+                      children: [
+                        Text(
+                          "Nothing's here !!",
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                        Text(
+                          "Order Something",
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                      ],
+                    ),
+                  ],
+                )
         ],
       ),
     );
@@ -128,7 +150,14 @@ class CheckoutRow extends StatelessWidget {
               width: 190,
               child: DefaultButton(
                 text: "Check Out",
-                press: () {},
+                press: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PaymentScreen(),
+                    ),
+                  );
+                },
               ),
             ),
           ],

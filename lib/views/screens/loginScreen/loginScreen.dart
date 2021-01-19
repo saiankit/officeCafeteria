@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:officecafeteria/services/users/loginUser.dart';
 import '../userRegistration/registerUserScreen.dart';
 import 'package:http/http.dart';
@@ -9,6 +10,8 @@ import '../../common/submitButton.dart';
 import '../homeScreen/homeScreen.dart';
 import '../userRegistration/components/userDataTextField.dart';
 
+final secureStorage = FlutterSecureStorage();
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -16,6 +19,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final snackBar = SnackBar(content: Text('All fields are compulsory'));
+  saveJwt(String token) async {
+    await secureStorage.write(key: 'jwt', value: token);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +55,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     label: "LOGIN",
                     onPressed: () async {
                       if (userData.email != null && userData.password != null) {
-                        var statusCode = await loginUser(
+                        var loginResponse = await loginUser(
                             email: userData.email, password: userData.password);
-                        if (statusCode == '201') {
+                        // saveJwt(loginResponse[0]);
+                        if (loginResponse[1] == '201') {
                           Navigator.pop(context);
                           Navigator.push(
                             context,

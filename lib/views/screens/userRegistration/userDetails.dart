@@ -17,7 +17,6 @@ class UserDetails extends StatefulWidget {
 
 class _UserDetailsState extends State<UserDetails> {
   final snackBar = SnackBar(content: Text('All fields are compulsory'));
-  File _image;
   final picker = ImagePicker();
   @override
   Widget build(BuildContext context) {
@@ -51,7 +50,7 @@ class _UserDetailsState extends State<UserDetails> {
               ),
               FlatButton(
                 onPressed: () {
-                  getImage();
+                  getImage(userData);
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -74,7 +73,7 @@ class _UserDetailsState extends State<UserDetails> {
                   ),
                 ),
               ),
-              _image == null
+              userData.image == null
                   ? Container()
                   : Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -99,7 +98,8 @@ class _UserDetailsState extends State<UserDetails> {
                           phoneNumber: userData.phoneNumber,
                           email: userData.email,
                           employeeId: userData.employeeId,
-                          imagePath: _image == null ? "" : _image,
+                          imagePath:
+                              userData.image == null ? "" : userData.image,
                         ),
                       ),
                     );
@@ -115,11 +115,9 @@ class _UserDetailsState extends State<UserDetails> {
     );
   }
 
-  Future getImage() async {
+  Future getImage(UserDataProvider userData) async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
-
-    setState(() {
-      _image = File(pickedFile.path);
-    });
+    userData.image = File(pickedFile.path);
+    print(userData.image.path);
   }
 }

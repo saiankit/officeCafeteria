@@ -8,12 +8,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const connectDB = require('./config/db.js');
 const usersRoute = require('./routes/users.js');
+const orderRoute = require('./routes/orders.js');
 
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
 app.use('/users', usersRoute);
+app.use('/orders', orderRoute);
 
 const PORT = process.env.PORT || 3000;
 connectDB();

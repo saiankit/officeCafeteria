@@ -7,6 +7,7 @@ import 'package:officecafeteria/providers/categoriesProvider.dart';
 import 'package:officecafeteria/providers/productCount.dart';
 import 'package:officecafeteria/providers/userDataProvider.dart';
 import 'package:officecafeteria/utilities/colors.dart';
+import 'package:officecafeteria/views/screens/userRegistration/registerUserScreen.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert' show json, base64, ascii;
 
@@ -45,7 +46,7 @@ class _MyAppState extends State<MyApp> {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         debugShowCheckedModeBanner: false,
-        home: CustomAuthWrapper(),
+        home: HomeScreen(),
       ),
     );
   }
@@ -67,33 +68,20 @@ class _CustomAuthWrapperState extends State<CustomAuthWrapper> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-          future: jwtOrEmpty,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData)
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            if (snapshot.data != "") {
-              var str = snapshot.data;
-              var jwt = str.split(".");
-
-              if (jwt.length != 3) {
-                return LoginScreen();
-              } else {
-                var payload = json.decode(
-                    ascii.decode(base64.decode(base64.normalize(jwt[1]))));
-                if (DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000)
-                    .isAfter(DateTime.now())) {
-                  return HomeScreen();
-                  // str, payload
-                } else {
-                  return LoginScreen();
-                }
-              }
-            } else {
-              return LoginScreen();
-            }
-          }),
+        future: jwtOrEmpty,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (snapshot.data != "") {
+            return HomeScreen();
+          } else {
+            return LoginScreen();
+          }
+        },
+      ),
     );
   }
 }

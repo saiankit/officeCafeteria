@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class UserDataProvider extends ChangeNotifier {
@@ -7,6 +9,7 @@ class UserDataProvider extends ChangeNotifier {
   int phoneNumber;
   String email;
   String password;
+  File image;
   updateFullName(String value) {
     fullName = value;
     notifyListeners();
