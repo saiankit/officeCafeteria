@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:officecafeteria/providers/cartProvider.dart';
+import 'package:officecafeteria/providers/categoriesProvider.dart';
 import 'package:officecafeteria/services/saveOrder.dart';
 import 'package:officecafeteria/utilities/colors.dart';
 import 'package:officecafeteria/views/screens/homeScreen/homeScreen.dart';
@@ -72,21 +73,24 @@ class PlaceOrderButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            width: 250,
-            child: Consumer<CartProvider>(
-              builder: (context, cartProvider, _) => DefaultButton(
-                text: "Place Order",
-                press: () async {
-                  var statusCode = await saveOrder(
-                          registrationId: "pay123", cartList: cartItemList)
-                      .catchError((error) => print(error));
-                  if (statusCode == '201') {
-                    cartProvider.clearItems();
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop();
-                  }
-                },
+          Consumer<CategoriesProvider>(
+            builder: (context, catProvider, _) => SizedBox(
+              width: 250,
+              child: Consumer<CartProvider>(
+                builder: (context, cartProvider, _) => DefaultButton(
+                  text: "Place Order",
+                  press: () async {
+                    var statusCode = await saveOrder(
+                            registrationId: "pay123", cartList: cartItemList)
+                        .catchError((error) => print(error));
+                    if (statusCode == '201') {
+                      cartProvider.clearItems();
+                      catProvider.toggleOrderSuccess();
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                    }
+                  },
+                ),
               ),
             ),
           ),
