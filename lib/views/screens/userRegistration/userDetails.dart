@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:officecafeteria/providers/userDataProvider.dart';
-import 'package:officecafeteria/services/users/postUser.dart';
+import 'package:officecafeteria/services/registerUser.dart';
 
 import 'package:officecafeteria/utilities/colors.dart';
 import 'package:officecafeteria/views/common/submitButton.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:officecafeteria/services/users/loginUser.dart';
+import 'package:officecafeteria/services/loginUser.dart';
 import '../userRegistration/registerUserScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:officecafeteria/utilities/colors.dart';

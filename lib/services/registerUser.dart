@@ -1,10 +1,9 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
 import 'package:http/http.dart';
 import 'package:officecafeteria/utilities/endpoints.dart';
 
-Future<String> postUser({
+Future<String> registerUser({
   String name,
   String organization,
   String employeeId,
@@ -13,7 +12,7 @@ Future<String> postUser({
   String password,
   File idCard,
 }) async {
-  String urlPOSTdonor = API.createUser;
+  String urlPOSTdonor = API.registerUser;
   Map<String, String> headers = {"Content-type": "application/json"};
   String json = '''{
     "name": "$name",

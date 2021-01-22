@@ -1,14 +1,13 @@
 import 'dart:convert';
-
 import 'package:http/http.dart';
 import 'package:officecafeteria/models/cartItem.dart';
 import 'package:officecafeteria/utilities/endpoints.dart';
 
-Future<String> saveOrder({
+Future<String> bookOrder({
   String registrationId,
   List<CartItem> cartList,
 }) async {
-  String urlPOSTorder = API.saveOrder;
+  String urlPOSTorder = API.bookOrder;
   Map<String, String> headers = {"Content-type": "application/json"};
   var orderProducts = List<dynamic>.from(cartList.map((x) => x.toJson()));
   var res = jsonEncode(orderProducts);
