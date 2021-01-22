@@ -14,9 +14,4 @@ class ProductCount extends ChangeNotifier {
     productCount++;
     notifyListeners();
   }
-
-  getItemCount() {
-    return productCount;
-    notifyListeners();
-  }
 }

@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:async';
 import 'package:http/http.dart';
 import 'package:officecafeteria/utilities/endpoints.dart';
 
@@ -8,6 +11,7 @@ Future<String> postUser({
   int phoneNumber,
   String email,
   String password,
+  File idCard,
 }) async {
   String urlPOSTdonor = API.createUser;
   Map<String, String> headers = {"Content-type": "application/json"};
@@ -17,7 +21,7 @@ Future<String> postUser({
     "employeeID": "$employeeId",
     "phoneNumber": $phoneNumber,
     "email": "$email",
-    "password": "$password",
+    "password": "$password"
 }''';
   var response = await post(urlPOSTdonor, headers: headers, body: json);
   String statusCode = response.statusCode.toString();

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:officecafeteria/models/cartItem.dart';
-import 'package:officecafeteria/providers/productCount.dart';
 
 List<CartItem> cartItemList = [];
 

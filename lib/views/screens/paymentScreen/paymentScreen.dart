@@ -3,7 +3,6 @@ import 'package:officecafeteria/providers/cartProvider.dart';
 import 'package:officecafeteria/providers/categoriesProvider.dart';
 import 'package:officecafeteria/services/saveOrder.dart';
 import 'package:officecafeteria/utilities/colors.dart';
-import 'package:officecafeteria/views/screens/homeScreen/homeScreen.dart';
 import 'package:officecafeteria/views/screens/shoppingCartScreen/shoppingCartScreen.dart';
 import 'package:provider/provider.dart';
 
@@ -40,6 +39,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
             children: [
               Spacer(),
               PlaceOrderButton(),
+            ],
+          ),
+          Column(
+            children: [
+              Container(
+                child: Row(
+                  children: [
+                    Text("Credit Card"),
+                  ],
+                ),
+              )
             ],
           ),
         ],

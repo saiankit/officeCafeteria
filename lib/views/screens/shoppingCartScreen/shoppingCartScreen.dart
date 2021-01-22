@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:officecafeteria/models/cartItem.dart';
 import 'package:officecafeteria/providers/cartProvider.dart';
-import 'package:officecafeteria/services/saveOrder.dart';
 import 'package:officecafeteria/utilities/colors.dart';
 import 'package:officecafeteria/views/screens/paymentScreen/paymentScreen.dart';
 import 'package:provider/provider.dart';

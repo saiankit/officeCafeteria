@@ -6,7 +6,6 @@ import 'package:officecafeteria/providers/userDataProvider.dart';
 import 'package:officecafeteria/utilities/colors.dart';
 import 'package:officecafeteria/views/common/submitButton.dart';
 import 'package:officecafeteria/views/screens/loginScreen/loginScreen.dart';
-import 'package:officecafeteria/views/screens/previewScreen/previewScreen.dart';
 import 'package:officecafeteria/views/screens/userRegistration/userDetails.dart';
 import 'package:provider/provider.dart';
 
@@ -19,8 +18,6 @@ class RegisterUser extends StatefulWidget {
 
 class _RegisterUserState extends State<RegisterUser> {
   final snackBar = SnackBar(content: Text('All fields are compulsory'));
-  File _image;
-  final picker = ImagePicker();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,13 +84,5 @@ class _RegisterUserState extends State<RegisterUser> {
         ),
       ),
     );
-  }
-
-  Future getImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
-
-    setState(() {
-      _image = File(pickedFile.path);
-    });
   }
 }

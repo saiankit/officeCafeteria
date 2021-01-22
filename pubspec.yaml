@@ -19,6 +19,7 @@ dependencies:
   provider:
   google_fonts:
   flutter_secure_storage:
+  flutter_native_image:
 
 dev_dependencies:
   flutter_test:

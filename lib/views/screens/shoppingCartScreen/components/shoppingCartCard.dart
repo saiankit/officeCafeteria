@@ -80,6 +80,13 @@ class ShoppingCartCard extends StatelessWidget {
                           style: Theme.of(context).textTheme.subtitle1,
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Text(
+                          "₹ ${cartItem.product.price} x ${cartItem.productCount}",
+                          style: Theme.of(context).textTheme.subtitle1,
+                        ),
+                      ),
                     ],
                   ),
                   Spacer(),
