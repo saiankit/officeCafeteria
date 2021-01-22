@@ -2,14 +2,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
-const app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+const production = require('./startup/prod.js');
 
+const app = express();
+app.use(bodyParser.json({ limit: '100mb' }));
+app.use(bodyParser.urlencoded({ limit: '100mb', extended: false }));
+production(app);
 const connectDB = require('./config/db.js');
 const usersRoute = require('./routes/users.js');
 const orderRoute = require('./routes/orders.js');
 
+app.use('/uploads', express.static(`${__dirname}/uploads`));
 app.get('/', (req, res) => {
   res.send('Hello World');
 });

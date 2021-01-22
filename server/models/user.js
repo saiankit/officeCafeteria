@@ -35,10 +35,6 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  idCard: {
-    data: Buffer,
-    contentType: String,
-  },
 });
 
 module.exports = mongoose.model('User', userSchema);

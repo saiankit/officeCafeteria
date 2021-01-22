@@ -1,6 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
+
 require('dotenv').config();
 const User = require('../models/user.js');
 const regId = require('../middlewares/registrationID');
@@ -18,10 +20,6 @@ router.post('/register', (req, res) => {
     password: req.body.password,
     registrationId: regId(),
     createdAt: Date.now(),
-    idCard: {
-      data: req.body.idCard,
-      contentType: 'image/png',
-    },
   });
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(newUser.password, salt, (error, hash) => {
@@ -49,14 +47,17 @@ router.post('/register', (req, res) => {
     });
   });
 });
-// Step 8 - the POST handler for processing the uploaded file
 
 router.get('/me', (req, res) => {
   const token = req.headers['x-access-token'];
   if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
   jwt.verify(token, jwtSecret, (err, decoded) => {
     if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
-    res.status(200).send(decoded);
+    User.findById(decoded.id, (error, user) => {
+      if (error) return res.send(err);
+      return res.send(user);
+    });
+    // res.status(200).send(decoded);
   });
 });
 
