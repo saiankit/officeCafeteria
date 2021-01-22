@@ -7,7 +7,6 @@ import 'package:officecafeteria/providers/categoriesProvider.dart';
 import 'package:officecafeteria/providers/productCount.dart';
 import 'package:officecafeteria/providers/userDataProvider.dart';
 import 'package:officecafeteria/utilities/colors.dart';
-import 'package:officecafeteria/views/screens/userRegistration/registerUserScreen.dart';
 import 'package:provider/provider.dart';
 import 'views/screens/homeScreen/homeScreen.dart';
 import 'views/screens/loginScreen/loginScreen.dart';

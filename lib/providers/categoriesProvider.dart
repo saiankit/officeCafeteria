@@ -8,6 +8,11 @@ class CategoriesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  dismissOrderSuccess() {
+    isOrderSuccess = false;
+    notifyListeners();
+  }
+
   changeCategory(int index) {
     categoryIndex = index;
     notifyListeners();

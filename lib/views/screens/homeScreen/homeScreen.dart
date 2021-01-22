@@ -1,5 +1,7 @@
 // Packages Import
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:officecafeteria/views/screens/homeScreen/components/settingsIcon.dart';
 import 'package:officecafeteria/views/screens/viewOrder/viewOrderScreen.dart';
 import 'package:provider/provider.dart';
 
@@ -7,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../../../providers/categoriesProvider.dart';
 
 //Utilities
+import '../../../providers/categoriesProvider.dart';
 import '../../../utilities/colors.dart';
 import '../../../data/products.dart';
 
@@ -15,12 +18,19 @@ import 'components/cartIcon.dart';
 import 'components/categoryList.dart';
 import 'components/productList.dart';
 
+final secureStorage = FlutterSecureStorage();
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Future<String> getUserName() async {
+    var name = await secureStorage.read(key: 'name');
+    return name;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,11 +38,18 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.homeScreenColor,
         elevation: 0,
-        actions: [CartIcon()],
-        title: Text(
-          "Hello, Sai Ankit",
-          style: TextStyle(color: Colors.black),
-        ),
+        actions: [
+          CartIcon(),
+          SettingsIcon(),
+        ],
+        title: FutureBuilder(
+            future: getUserName(),
+            builder: (context, snapshot) {
+              return Text(
+                "Hello, " + snapshot.data.toString(),
+                style: TextStyle(color: Colors.black),
+              );
+            }),
         centerTitle: false,
       ),
       body: SafeArea(
@@ -60,6 +77,21 @@ class _HomeScreenState extends State<HomeScreen> {
 class OrderSuccessContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SizedBox buildOutlineButton({IconData icon, Function press}) {
+      return SizedBox(
+        width: 40,
+        height: 32,
+        child: OutlineButton(
+          padding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(13),
+          ),
+          onPressed: press,
+          child: Icon(icon),
+        ),
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       child: Container(
@@ -72,9 +104,26 @@ class OrderSuccessContainer extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "Order Successful",
-              style: Theme.of(context).textTheme.headline6,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Spacer(),
+                Text(
+                  "Order Successful",
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                Spacer(),
+                Consumer<CategoriesProvider>(
+                  builder: (context, catProvider, _) => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: buildOutlineButton(
+                        icon: Icons.clear,
+                        press: () {
+                          catProvider.dismissOrderSuccess();
+                        }),
+                  ),
+                ),
+              ],
             ),
             InkWell(
               onTap: () {

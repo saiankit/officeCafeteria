@@ -5,6 +5,10 @@ import 'package:officecafeteria/utilities/colors.dart';
 import 'package:officecafeteria/views/screens/paymentScreen/paymentScreen.dart';
 import 'package:provider/provider.dart';
 
+import '../../../providers/cartProvider.dart';
+import '../../../providers/cartProvider.dart';
+import '../../../providers/cartProvider.dart';
+import '../../../providers/cartProvider.dart';
 import 'components/shoppingCartCard.dart';
 
 class ShoppingCartScreen extends StatefulWidget {
@@ -15,63 +19,114 @@ class ShoppingCartScreen extends StatefulWidget {
 class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.homeScreenColor,
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: AppColors.secondaryColor,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        elevation: 0,
-        title: Text(
-          "My Tray",
-          style: TextStyle(color: Colors.black),
-        ),
+    void clearCart(BuildContext context, CartProvider cartProvider) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Clear List"),
+            content: Text("Are you sure you want to clear the items in Cart ?"),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(
+                  'Yes',
+                  style: TextStyle(
+                    color: Colors.red,
+                  ),
+                ),
+                onPressed: () {
+                  cartProvider.clearItems();
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                child: new Text("No"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+    return Consumer<CartProvider>(
+      builder: (context, cartProvider, _) => Scaffold(
         backgroundColor: AppColors.homeScreenColor,
-      ),
-      body: Stack(
-        children: [
-          Consumer<CartProvider>(
-            builder: (context, cartProvider, _) => ListView.builder(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: AppColors.secondaryColor,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          elevation: 0,
+          title: Text(
+            "My Tray",
+            style: TextStyle(color: Colors.black),
+          ),
+          actions: [
+            cartItemList.length != 0
+                ? IconButton(
+                    icon: Icon(
+                      Icons.delete_sharp,
+                      color: AppColors.secondaryColor,
+                    ),
+                    onPressed: () {
+                      clearCart(context, cartProvider);
+                    },
+                  )
+                : Container()
+          ],
+          backgroundColor: AppColors.homeScreenColor,
+        ),
+        body: Stack(
+          children: [
+            ListView.builder(
               shrinkWrap: true,
               itemCount: cartItemList.length,
               itemBuilder: (context, index) => ShoppingCartCard(
                 cartItem: cartItemList[index],
               ),
             ),
-          ),
-          cartItemList.length != 0
-              ? Column(
-                  children: [
-                    Spacer(),
-                    CheckoutRow(),
-                  ],
-                )
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset("assets/nothing.svg"),
-                    Column(
-                      children: [
-                        Text(
-                          "Nothing's here !!",
-                          style: Theme.of(context).textTheme.headline5,
-                        ),
-                        Text(
-                          "Order Something",
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                      ],
-                    ),
-                  ],
-                )
-        ],
+            cartItemList.length != 0
+                ? Column(
+                    children: [
+                      Spacer(),
+                      CheckoutRow(),
+                    ],
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Spacer(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset("assets/nothing.svg"),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            "Nothing's here !!",
+                            style: Theme.of(context).textTheme.headline5,
+                          ),
+                          Text(
+                            "Order Something",
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                    ],
+                  )
+          ],
+        ),
       ),
     );
   }

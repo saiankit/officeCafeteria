@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:officecafeteria/providers/cartProvider.dart';
 import 'package:officecafeteria/providers/categoriesProvider.dart';
 import 'package:officecafeteria/services/saveOrder.dart';
@@ -60,7 +61,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 }
 
+final secureStorage = FlutterSecureStorage();
+
 class PlaceOrderButton extends StatelessWidget {
+  Future<String> getRegistrationId() async {
+    var regId = await secureStorage.read(key: 'registrationId');
+    return regId;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -89,20 +97,25 @@ class PlaceOrderButton extends StatelessWidget {
             builder: (context, catProvider, _) => SizedBox(
               width: 250,
               child: Consumer<CartProvider>(
-                builder: (context, cartProvider, _) => DefaultButton(
-                  text: "Place Order",
-                  press: () async {
-                    var statusCode = await bookOrder(
-                            registrationId: "pay123", cartList: cartItemList)
-                        .catchError((error) => print(error));
-                    if (statusCode == '201') {
-                      cartProvider.clearItems();
-                      catProvider.toggleOrderSuccess();
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pop();
-                    }
-                  },
-                ),
+                builder: (context, cartProvider, _) => FutureBuilder<String>(
+                    future: getRegistrationId(),
+                    builder: (context, snapshot) {
+                      return DefaultButton(
+                        text: "Place Order",
+                        press: () async {
+                          var statusCode = await bookOrder(
+                                  registrationId: "${snapshot.data}",
+                                  cartList: cartItemList)
+                              .catchError((error) => print(error));
+                          if (statusCode == '201') {
+                            cartProvider.clearItems();
+                            catProvider.toggleOrderSuccess();
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                          }
+                        },
+                      );
+                    }),
               ),
             ),
           ),
