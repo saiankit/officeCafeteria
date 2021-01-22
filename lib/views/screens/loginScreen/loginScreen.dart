@@ -17,7 +17,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final snackBar = SnackBar(content: Text('All fields are compulsory'));
+  final passwordSnackBar =
+      SnackBar(content: Text('Please enter a valid password'));
+  final emailSnackBar = SnackBar(content: Text('Please enter a valid e-mail'));
+
   saveJwt(String token) async {
     await secureStorage.write(key: 'jwt', value: token);
   }
@@ -53,11 +56,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   SubmitButton(
                     label: "LOGIN",
                     onPressed: () async {
-                      if (userData.email != null && userData.password != null) {
+                      if (userData.email == null) {
+                        Scaffold.of(context).showSnackBar(emailSnackBar);
+                      } else if (userData.password == null) {
+                        Scaffold.of(context).showSnackBar(passwordSnackBar);
+                      } else {
                         var loginResponse = await loginUser(
                             email: userData.email, password: userData.password);
-                        // saveJwt(loginResponse[0]);
-                        if (loginResponse[1] == '201') {
+
+                        // Save the JWT Token to persist the user
+                        var token = loginResponse[0];
+                        saveJwt(token);
+
+                        // Verifying the POST Status Code and routing user to HomeScreen
+                        var statusCode = loginResponse[1];
+                        if (statusCode == '201') {
                           Navigator.pop(context);
                           Navigator.push(
                             context,
@@ -66,11 +79,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           );
                         }
-                      } else {
-                        Scaffold.of(context).showSnackBar(snackBar);
                       }
                     },
                   ),
+
+                  // Register Button to Route to Register Screen
                   SubmitButton(
                     flip: true,
                     label: "REGISTER",

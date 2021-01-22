@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:officecafeteria/providers/userDataProvider.dart';
 import 'package:officecafeteria/services/registerUser.dart';
@@ -75,7 +74,7 @@ class _UserDetailsState extends State<UserDetails> {
                   ),
                 ),
               ),
-              userData.image == null
+              userData.idCardImage == null
                   ? Container()
                   : Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -91,33 +90,21 @@ class _UserDetailsState extends State<UserDetails> {
                   if (userData.oraganisationName != null &&
                       userData.phoneNumber != null &&
                       userData.employeeId != null) {
-                    var response = await postUser(
-                      name: userData.fullName,
-                      organization: userData.oraganisationName,
-                      employeeId: userData.employeeId,
-                      phoneNumber: userData.phoneNumber,
-                      email: userData.email,
-                      password: userData.password,
-                      idCard: userData.image,
-                    );
-                    if (response == "201") {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PreviewScreen(
-                            name: userData.fullName,
-                            organization: userData.oraganisationName,
-                            phoneNumber: userData.phoneNumber,
-                            email: userData.email,
-                            employeeId: userData.employeeId,
-                            imagePath:
-                                userData.image == null ? "" : userData.image,
-                          ),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PreviewScreen(
+                          name: userData.fullName,
+                          organization: userData.oraganisationName,
+                          phoneNumber: userData.phoneNumber,
+                          email: userData.email,
+                          employeeId: userData.employeeId,
+                          imagePath: userData.idCardImage == null
+                              ? ""
+                              : userData.idCardImage,
                         ),
-                      );
-                    } else {
-                      Scaffold.of(context).showSnackBar(snackBar);
-                    }
+                      ),
+                    );
                   } else {
                     Scaffold.of(context).showSnackBar(snackBar);
                   }
@@ -133,7 +120,6 @@ class _UserDetailsState extends State<UserDetails> {
   Future getImage(UserDataProvider userData) async {
     final pickedFile =
         await picker.getImage(source: ImageSource.gallery, imageQuality: 10);
-    userData.image = await File(pickedFile.path);
-    print(userData.image.path);
+    userData.updateImage(File(pickedFile.path));
   }
 }

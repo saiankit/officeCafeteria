@@ -9,7 +9,7 @@ class UserDataProvider extends ChangeNotifier {
   int phoneNumber;
   String email;
   String password;
-  File image;
+  File idCardImage;
   updateFullName(String value) {
     fullName = value;
     notifyListeners();
@@ -37,6 +37,11 @@ class UserDataProvider extends ChangeNotifier {
 
   updatePassword(String value) {
     password = value;
+    notifyListeners();
+  }
+
+  updateImage(File image) {
+    idCardImage = image;
     notifyListeners();
   }
 }

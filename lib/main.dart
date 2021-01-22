@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         debugShowCheckedModeBanner: false,
-        home: RegisterUser(),
+        home: CustomAuthWrapper(),
       ),
     );
   }

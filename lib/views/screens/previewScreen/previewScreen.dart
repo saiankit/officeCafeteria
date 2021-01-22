@@ -2,7 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:officecafeteria/services/registerUser.dart';
+import 'package:provider/provider.dart';
 
+import '../../../providers/userDataProvider.dart';
 import '../homeScreen/homeScreen.dart';
 import '../../../utilities/colors.dart';
 
@@ -141,38 +144,44 @@ class SubmitUserData extends StatefulWidget {
 class _SubmitUserDataState extends State<SubmitUserData> {
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      onPressed: () {
-        Navigator.pop(context);
-        Navigator.pop(context);
-        // postUser(
-        //   name: widget.name,
-        //   organization: widget.organization,
-        //   employeeId: widget.employeeId,
-        //   phoneNumber: widget.phoneNumber,
-        //   email: widget.email,
-        // );
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomeScreen(),
+    return Consumer<UserDataProvider>(
+      builder: (context, userData, _) => FlatButton(
+        onPressed: () async {
+          var response = await registerUser(
+            name: userData.fullName,
+            organization: userData.oraganisationName,
+            employeeId: userData.employeeId,
+            phoneNumber: userData.phoneNumber,
+            email: userData.email,
+            password: userData.password,
+          );
+          if (response == "201") {
+            Navigator.pop(context);
+            Navigator.pop(context);
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomeScreen(),
+              ),
+            );
+          }
+        },
+        child: Container(
+          height: 60,
+          width: 200,
+          decoration: BoxDecoration(
+            color: AppColors.buttonColor,
+            borderRadius: BorderRadius.circular(20),
           ),
-        );
-      },
-      child: Container(
-        height: 60,
-        width: 200,
-        decoration: BoxDecoration(
-          color: AppColors.buttonColor,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Center(
-          child: Text(
-            "SUBMIT",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold,
+          child: Center(
+            child: Text(
+              "SUBMIT",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 25.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),

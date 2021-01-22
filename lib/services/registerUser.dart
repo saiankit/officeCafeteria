@@ -10,9 +10,7 @@ Future<String> registerUser({
   int phoneNumber,
   String email,
   String password,
-  File idCard,
 }) async {
-  String urlPOSTdonor = API.registerUser;
   Map<String, String> headers = {"Content-type": "application/json"};
   String json = '''{
     "name": "$name",
@@ -21,9 +19,10 @@ Future<String> registerUser({
     "phoneNumber": $phoneNumber,
     "email": "$email",
     "password": "$password"
-}''';
-  var response = await post(urlPOSTdonor, headers: headers, body: json);
+  }''';
+  var response = await post(API.registerUser, headers: headers, body: json);
   String statusCode = response.statusCode.toString();
+  print(API.registerUser);
   print('User POST request Status Code : ' + statusCode);
   if (statusCode == '201') {
     print('User POST successfull');

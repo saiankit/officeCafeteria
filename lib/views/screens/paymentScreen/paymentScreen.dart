@@ -6,6 +6,8 @@ import 'package:officecafeteria/utilities/colors.dart';
 import 'package:officecafeteria/views/screens/shoppingCartScreen/shoppingCartScreen.dart';
 import 'package:provider/provider.dart';
 
+import '../../../services/saveOrder.dart';
+
 class PaymentScreen extends StatefulWidget {
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
@@ -90,7 +92,7 @@ class PlaceOrderButton extends StatelessWidget {
                 builder: (context, cartProvider, _) => DefaultButton(
                   text: "Place Order",
                   press: () async {
-                    var statusCode = await saveOrder(
+                    var statusCode = await bookOrder(
                             registrationId: "pay123", cartList: cartItemList)
                         .catchError((error) => print(error));
                     if (statusCode == '201') {
