@@ -81,21 +81,31 @@ void showLogOutDialog(BuildContext context) {
             ),
             onPressed: () {
               clearUserData();
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CustomAuthWrapper(),
-                ),
-              );
+              Future.delayed(Duration.zero, () {
+                Navigator.pop(context);
+              });
+              Future.delayed(Duration.zero, () {
+                Navigator.pop(context);
+              });
+              Future.delayed(Duration.zero, () {
+                Navigator.pop(context);
+              });
+              Future.delayed(Duration.zero, () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CustomAuthWrapper(),
+                  ),
+                );
+              });
             },
           ),
           FlatButton(
             child: new Text("No"),
             onPressed: () {
-              Navigator.of(context).pop();
+              Future.delayed(Duration.zero, () {
+                Navigator.pop(context);
+              });
             },
           ),
         ],

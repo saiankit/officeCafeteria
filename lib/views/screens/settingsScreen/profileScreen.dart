@@ -12,7 +12,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.homeScreenColor,
       appBar: AppBar(
+        title: Text(
+          "Settings",
+          style: TextStyle(color: Colors.black),
+        ),
         backgroundColor: AppColors.homeScreenColor,
         leading: IconButton(
           icon: Icon(
@@ -20,10 +25,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             color: AppColors.secondaryColor,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Future.delayed(Duration.zero, () {
+              Navigator.pop(context);
+            });
           },
         ),
         elevation: 0,
+        centerTitle: false,
       ),
       body: Body(),
     );

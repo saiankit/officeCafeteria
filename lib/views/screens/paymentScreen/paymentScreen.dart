@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:officecafeteria/providers/cartProvider.dart';
 import 'package:officecafeteria/providers/categoriesProvider.dart';
 import 'package:officecafeteria/services/saveOrder.dart';
 import 'package:officecafeteria/utilities/colors.dart';
+import 'package:officecafeteria/views/common/loadingWidget.dart';
 import 'package:officecafeteria/views/screens/shoppingCartScreen/shoppingCartScreen.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +28,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
             color: AppColors.secondaryColor,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Future.delayed(Duration.zero, () {
+              Navigator.pop(context);
+            });
           },
         ),
         elevation: 0,
@@ -46,13 +50,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
           ),
           Column(
             children: [
-              Container(
-                child: Row(
-                  children: [
-                    Text("Credit Card"),
-                  ],
-                ),
-              )
+              PaymentOption(
+                text: "Cash",
+                icon: "assets/cash.svg",
+              ),
+              PaymentOption(
+                text: "Credit Card",
+                icon: "assets/credit-card (1).svg",
+              ),
+              PaymentOption(
+                text: "Netbanking",
+                icon: "assets/online-banking.svg",
+              ),
             ],
           ),
         ],
@@ -61,9 +70,64 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 }
 
+class PaymentOption extends StatefulWidget {
+  final String icon;
+  final String text;
+
+  const PaymentOption({Key key, this.icon, this.text}) : super(key: key);
+  @override
+  _PaymentOptionState createState() => _PaymentOptionState();
+}
+
+class _PaymentOptionState extends State<PaymentOption> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: AppColors.secondaryColor,
+          ),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: FlatButton(
+          padding: EdgeInsets.all(20),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          color: Color(0xFFF5F6F9),
+          onPressed: () {},
+          child: Row(
+            children: [
+              SvgPicture.asset(
+                widget.icon,
+                width: 30,
+              ),
+              SizedBox(width: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.text,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 final secureStorage = FlutterSecureStorage();
 
-class PlaceOrderButton extends StatelessWidget {
+class PlaceOrderButton extends StatefulWidget {
+  @override
+  _PlaceOrderButtonState createState() => _PlaceOrderButtonState();
+}
+
+class _PlaceOrderButtonState extends State<PlaceOrderButton> {
   Future<String> getRegistrationId() async {
     var regId = await secureStorage.read(key: 'registrationId');
     return regId;
@@ -110,8 +174,13 @@ class PlaceOrderButton extends StatelessWidget {
                           if (statusCode == '201') {
                             cartProvider.clearItems();
                             catProvider.toggleOrderSuccess();
-                            Navigator.of(context).pop();
-                            Navigator.of(context).pop();
+
+                            Future.delayed(Duration.zero, () {
+                              Navigator.pop(context);
+                            });
+                            Future.delayed(Duration.zero, () {
+                              Navigator.pop(context);
+                            });
                           }
                         },
                       );

@@ -34,9 +34,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.homeScreenColor,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: AppColors.homeScreenColor,
+        backgroundColor: Colors.white,
         elevation: 0,
         actions: [
           CartIcon(),

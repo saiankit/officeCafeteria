@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:http/http.dart';
 import 'package:officecafeteria/utilities/endpoints.dart';
 
-Future<String> registerUser({
+Future<List<String>> registerUser({
   String name,
   String organization,
   String employeeId,
@@ -22,12 +22,12 @@ Future<String> registerUser({
   }''';
   var response = await post(API.registerUser, headers: headers, body: json);
   String statusCode = response.statusCode.toString();
-  print(API.registerUser);
+  String jwtToken = response.body[0].toString();
   print('User POST request Status Code : ' + statusCode);
   if (statusCode == '201') {
     print('User POST successfull');
   } else {
     print('User POST Failed');
   }
-  return statusCode;
+  return [statusCode, jwtToken];
 }

@@ -4,6 +4,7 @@ import 'package:officecafeteria/models/cartItem.dart';
 import 'package:officecafeteria/models/product.dart';
 import 'package:officecafeteria/providers/cartProvider.dart';
 import 'package:officecafeteria/providers/productCount.dart';
+import 'package:officecafeteria/utilities/colors.dart';
 import 'package:provider/provider.dart';
 
 class AddToTrayButton extends StatelessWidget {
@@ -30,7 +31,9 @@ class AddToTrayButton extends StatelessWidget {
             onPressed: () {
               cartProvider.addItemsToCart(CartItem(product, productCount));
               count.productCount = 1;
-              Navigator.pop(context);
+              Future.delayed(Duration.zero, () {
+                Navigator.pop(context);
+              });
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

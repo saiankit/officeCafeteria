@@ -1,8 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:officecafeteria/services/aboutMe.dart';
 import 'package:officecafeteria/services/registerUser.dart';
+import 'package:officecafeteria/views/common/submitButton.dart';
+import 'package:officecafeteria/views/screens/userRegistration/registerUserScreen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/userDataProvider.dart';
@@ -96,26 +100,33 @@ class ProfileDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: FlatButton(
-        padding: EdgeInsets.all(20),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        color: AppColors.previewDetailsColor,
-        onPressed: () {},
-        child: Row(
-          children: [
-            SvgPicture.asset(
-              icon,
-              color: AppColors.secondaryColor,
-              width: 22,
-            ),
-            SizedBox(width: 20),
-            Expanded(
-              child: Text(
-                this.label,
-                style: TextStyle(fontWeight: FontWeight.bold),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: FlatButton(
+          padding: EdgeInsets.all(20),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          onPressed: () {},
+          child: Row(
+            children: [
+              SvgPicture.asset(
+                icon,
+                color: AppColors.secondaryColor,
+                width: 22,
               ),
-            ),
-          ],
+              SizedBox(width: 20),
+              Expanded(
+                child: Text(
+                  this.label,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -141,11 +152,18 @@ class SubmitUserData extends StatefulWidget {
   _SubmitUserDataState createState() => _SubmitUserDataState();
 }
 
+final secureStorage = FlutterSecureStorage();
+
 class _SubmitUserDataState extends State<SubmitUserData> {
+  saveJwt(String token) async {
+    await secureStorage.write(key: 'jwt', value: token);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<UserDataProvider>(
-      builder: (context, userData, _) => FlatButton(
+      builder: (context, userData, _) => SubmitButton(
+        label: "REGISTER",
         onPressed: () async {
           var response = await registerUser(
             name: userData.fullName,
@@ -155,36 +173,31 @@ class _SubmitUserDataState extends State<SubmitUserData> {
             email: userData.email,
             password: userData.password,
           );
-          if (response == "201") {
-            Navigator.pop(context);
-            Navigator.pop(context);
-            Navigator.pop(context);
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => HomeScreen(),
-              ),
-            );
+          if (response[0] == "201") {
+            saveJwt(response[1]);
+            var aboutMyInfo = await aboutMe(jwtToken: response[1]);
+            // Popping out the Preview Screen
+            Future.delayed(Duration.zero, () {
+              Navigator.pop(context);
+            });
+            // Popping out the User Details Screen
+            Future.delayed(Duration.zero, () {
+              Navigator.pop(context);
+            });
+            // Popping out the Register Screen
+            Future.delayed(Duration.zero, () {
+              Navigator.pop(context);
+            });
+            Future.delayed(Duration.zero, () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomeScreen(),
+                ),
+              );
+            });
           }
         },
-        child: Container(
-          height: 60,
-          width: 200,
-          decoration: BoxDecoration(
-            color: AppColors.buttonColor,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Center(
-            child: Text(
-              "SUBMIT",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 25.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:officecafeteria/providers/categoriesProvider.dart';
+import 'package:officecafeteria/utilities/colors.dart';
 import 'package:provider/provider.dart';
 
 class CategoryList extends StatefulWidget {
@@ -34,8 +35,9 @@ class _CategoryListState extends State<CategoryList> {
               ),
               padding: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
-                color:
-                    index == selectedIndex ? Colors.white : Colors.transparent,
+                color: index == selectedIndex
+                    ? AppColors.secondaryColor.withOpacity(0.1)
+                    : Colors.transparent,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(

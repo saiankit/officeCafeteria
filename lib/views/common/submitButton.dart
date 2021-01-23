@@ -15,23 +15,24 @@ class SubmitButton extends StatefulWidget {
 class _SubmitButtonState extends State<SubmitButton> {
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      onPressed: widget.onPressed,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Container(
-          height: 60,
-          width: 200,
-          decoration: BoxDecoration(
-            color:
-                widget.flip ? AppColors.homeScreenColor : AppColors.buttonColor,
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-                width: 1.5,
-                color: widget.flip
-                    ? AppColors.secondaryColor
-                    : AppColors.secondaryColor),
-          ),
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Container(
+        height: 60,
+        width: 200,
+        decoration: BoxDecoration(
+          color: widget.flip
+              ? AppColors.homeScreenColor
+              : AppColors.secondaryColor,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+              width: 1.5,
+              color: widget.flip
+                  ? AppColors.secondaryColor
+                  : AppColors.secondaryColor),
+        ),
+        child: FlatButton(
+          onPressed: widget.onPressed,
           child: Center(
             child: Text(
               widget.label,

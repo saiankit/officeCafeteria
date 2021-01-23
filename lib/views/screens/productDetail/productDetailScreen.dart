@@ -25,6 +25,14 @@ class DetailsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.homeScreenColor,
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Future.delayed(Duration.zero, () {
+              Navigator.pop(context);
+            });
+          },
+        ),
         backgroundColor: AppColors.bgColor,
         elevation: 0,
       ),

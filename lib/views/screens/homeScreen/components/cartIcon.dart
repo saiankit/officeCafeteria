@@ -6,8 +6,6 @@ import 'package:provider/provider.dart';
 
 import '../../shoppingCartScreen/shoppingCartScreen.dart';
 
-const kSecondaryColor = Color(0xFFFFA41B);
-
 class CartIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -32,7 +30,7 @@ class CartIcon extends StatelessWidget {
                 height: 46,
                 width: 46,
                 decoration: BoxDecoration(
-                  color: kSecondaryColor.withOpacity(0.1),
+                  color: AppColors.secondaryColor.withOpacity(0.1),
                   shape: BoxShape.circle,
                 ),
                 child: SvgPicture.asset(

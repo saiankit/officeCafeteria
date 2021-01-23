@@ -36,13 +36,17 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                 ),
                 onPressed: () {
                   cartProvider.clearItems();
-                  Navigator.of(context).pop();
+                  Future.delayed(Duration.zero, () {
+                    Navigator.pop(context);
+                  });
                 },
               ),
               FlatButton(
                 child: new Text("No"),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Future.delayed(Duration.zero, () {
+                    Navigator.pop(context);
+                  });
                 },
               ),
             ],
@@ -61,7 +65,9 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
               color: AppColors.secondaryColor,
             ),
             onPressed: () {
-              Navigator.pop(context);
+              Future.delayed(Duration.zero, () {
+                Navigator.pop(context);
+              });
             },
           ),
           elevation: 0,

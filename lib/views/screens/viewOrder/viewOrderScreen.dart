@@ -18,7 +18,9 @@ class _ViewOrderScreenState extends State<ViewOrderScreen> {
             color: AppColors.secondaryColor,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Future.delayed(Duration.zero, () {
+              Navigator.pop(context);
+            });
           },
         ),
         elevation: 0,

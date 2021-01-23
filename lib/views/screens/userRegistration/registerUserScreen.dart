@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:officecafeteria/providers/userDataProvider.dart';
 
 import 'package:officecafeteria/utilities/colors.dart';
@@ -20,17 +21,16 @@ class _RegisterUserState extends State<RegisterUser> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.homeScreenColor,
-      appBar: AppBar(
-        title: Text("Office Cafetaria"),
-        centerTitle: false,
-        backgroundColor: AppColors.secondaryColor,
-        elevation: 0,
-      ),
       body: Builder(
         builder: (context) => Consumer<UserDataProvider>(
           builder: (context, userData, _) => Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(
+                height: 100.0,
+                width: 100.0,
+                child: SvgPicture.asset("assets/food-delivery.svg"),
+              ),
               UserDataTextField(
                 title: "Full Name",
                 type: TextInputType.name,
@@ -68,13 +68,17 @@ class _RegisterUserState extends State<RegisterUser> {
                 flip: true,
                 label: "LOGIN",
                 onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => LoginScreen(),
-                    ),
-                  );
+                  Future.delayed(Duration.zero, () {
+                    Navigator.pop(context);
+                  });
+                  Future.delayed(Duration.zero, () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ),
+                    );
+                  });
                 },
               )
             ],

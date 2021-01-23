@@ -5,6 +5,7 @@ import 'package:officecafeteria/providers/userDataProvider.dart';
 import 'package:officecafeteria/services/registerUser.dart';
 
 import 'package:officecafeteria/utilities/colors.dart';
+import 'package:officecafeteria/views/common/loadingWidget.dart';
 import 'package:officecafeteria/views/common/submitButton.dart';
 import 'package:officecafeteria/views/screens/previewScreen/previewScreen.dart';
 import 'package:provider/provider.dart';
@@ -19,16 +20,11 @@ class UserDetails extends StatefulWidget {
 class _UserDetailsState extends State<UserDetails> {
   final snackBar = SnackBar(content: Text('All fields are compulsory'));
   final picker = ImagePicker();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.homeScreenColor,
-      appBar: AppBar(
-        title: Text("Office Cafetaria"),
-        centerTitle: false,
-        backgroundColor: AppColors.secondaryColor,
-        elevation: 0,
-      ),
       body: Builder(
         builder: (context) => Consumer<UserDataProvider>(
           builder: (context, userData, _) => Column(
@@ -60,7 +56,7 @@ class _UserDetailsState extends State<UserDetails> {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.06,
                     decoration: BoxDecoration(
-                      color: AppColors.skinColor,
+                      color: Color(0xffbbf1fa),
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Row(
@@ -90,21 +86,23 @@ class _UserDetailsState extends State<UserDetails> {
                   if (userData.oraganisationName != null &&
                       userData.phoneNumber != null &&
                       userData.employeeId != null) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PreviewScreen(
-                          name: userData.fullName,
-                          organization: userData.oraganisationName,
-                          phoneNumber: userData.phoneNumber,
-                          email: userData.email,
-                          employeeId: userData.employeeId,
-                          imagePath: userData.idCardImage == null
-                              ? ""
-                              : userData.idCardImage,
+                    Future.delayed(Duration.zero, () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PreviewScreen(
+                            name: userData.fullName,
+                            organization: userData.oraganisationName,
+                            phoneNumber: userData.phoneNumber,
+                            email: userData.email,
+                            employeeId: userData.employeeId,
+                            imagePath: userData.idCardImage == null
+                                ? ""
+                                : userData.idCardImage,
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    });
                   } else {
                     Scaffold.of(context).showSnackBar(snackBar);
                   }

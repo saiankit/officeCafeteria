@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:officecafeteria/services/aboutMe.dart';
 import 'package:officecafeteria/services/loginUser.dart';
+import 'package:officecafeteria/views/common/loadingWidget.dart';
 import '../userRegistration/registerUserScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:officecafeteria/utilities/colors.dart';
@@ -31,20 +33,26 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: AppColors.homeScreenColor,
       appBar: AppBar(
-        title: Text("Office Cafetaria"),
-        centerTitle: false,
-        backgroundColor: AppColors.secondaryColor,
+        backgroundColor: AppColors.homeScreenColor,
         elevation: 0,
       ),
-      body: isLoading
-          ? CircularProgressIndicator()
-          : Builder(
-              builder: (context) => Consumer<UserDataProvider>(
-                builder: (context, userData, _) => Stack(
-                  children: [
-                    Column(
+      body: Builder(
+        builder: (context) => Consumer<UserDataProvider>(
+          builder: (context, userData, _) => Stack(
+            children: [
+              isLoading
+                  ? loginLoading(context)
+                  : Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Text(
+                          "Office Cafetaria",
+                          style: Theme.of(context).textTheme.headline4,
+                        ),
+                        SizedBox(
+                            height: 100.0,
+                            width: 100.0,
+                            child: SvgPicture.asset("assets/coffee-cup.svg")),
                         UserDataTextField(
                           title: "Email Address",
                           type: TextInputType.emailAddress,
@@ -59,15 +67,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         SubmitButton(
                           label: "LOGIN",
                           onPressed: () async {
-                            setState(() {
-                              isLoading = true;
-                            });
                             if (userData.email == null) {
                               Scaffold.of(context).showSnackBar(emailSnackBar);
                             } else if (userData.password == null) {
                               Scaffold.of(context)
                                   .showSnackBar(passwordSnackBar);
                             } else {
+                              setState(() {
+                                isLoading = true;
+                              });
                               var loginResponse = await loginUser(
                                   email: userData.email,
                                   password: userData.password);
@@ -80,38 +88,48 @@ class _LoginScreenState extends State<LoginScreen> {
                               // Verifying the POST Status Code and routing user to HomeScreen
                               var statusCode = loginResponse[1];
                               if (statusCode == '201') {
-                                Navigator.pop(context);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => HomeScreen(),
-                                  ),
-                                );
+                                setState(() {
+                                  isLoading = false;
+                                });
+                                Future.delayed(Duration.zero, () {
+                                  Navigator.pop(context);
+                                });
+                                Future.delayed(Duration.zero, () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => HomeScreen(),
+                                    ),
+                                  );
+                                });
                               }
                             }
                           },
                         ),
-
                         // Register Button to Route to Register Screen
                         SubmitButton(
                           flip: true,
                           label: "REGISTER",
                           onPressed: () {
-                            Navigator.pop(context);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => RegisterUser(),
-                              ),
-                            );
+                            Future.delayed(Duration.zero, () {
+                              Navigator.pop(context);
+                            });
+                            Future.delayed(Duration.zero, () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => RegisterUser(),
+                                ),
+                              );
+                            });
                           },
                         ),
                       ],
                     ),
-                  ],
-                ),
-              ),
-            ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
