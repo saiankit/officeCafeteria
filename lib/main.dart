@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:officecafeteria/providers/cartProvider.dart';
-import 'package:officecafeteria/providers/categoriesProvider.dart';
-import 'package:officecafeteria/providers/loadingProvider.dart';
-import 'package:officecafeteria/providers/paymentProvider.dart';
-import 'package:officecafeteria/providers/productCount.dart';
-import 'package:officecafeteria/providers/userDataProvider.dart';
-import 'package:officecafeteria/utilities/colors.dart';
 import 'package:provider/provider.dart';
-import 'views/screens/homeScreen/homeScreen.dart';
-import 'views/screens/loginScreen/loginScreen.dart';
 
-final secureStorage = FlutterSecureStorage();
+import 'providers/changeNotifierProviders.dart';
+import 'utilities/colors.dart';
+import 'views/common/authWrapper.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -31,14 +24,7 @@ class _MyAppState extends State<MyApp> {
       ],
     );
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => UserDataProvider()),
-        ChangeNotifierProvider(create: (_) => CategoriesProvider()),
-        ChangeNotifierProvider(create: (_) => ProductCount()),
-        ChangeNotifierProvider(create: (_) => CartProvider()),
-        ChangeNotifierProvider(create: (_) => LoadingProvider()),
-        ChangeNotifierProvider(create: (_) => PaymentProvider()),
-      ],
+      providers: changeNotifierProviders,
       child: MaterialApp(
         theme: ThemeData(
           textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
@@ -48,40 +34,6 @@ class _MyAppState extends State<MyApp> {
         ),
         debugShowCheckedModeBanner: false,
         home: CustomAuthWrapper(),
-      ),
-    );
-  }
-}
-
-class CustomAuthWrapper extends StatefulWidget {
-  @override
-  _CustomAuthWrapperState createState() => _CustomAuthWrapperState();
-}
-
-class _CustomAuthWrapperState extends State<CustomAuthWrapper> {
-  Future<String> get getJwt async {
-    var jwt = await secureStorage.read(key: "jwt");
-    if (jwt == null) return "";
-    return jwt;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: FutureBuilder(
-        future: getJwt,
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (snapshot.data != "") {
-            return HomeScreen();
-          } else {
-            return LoginScreen();
-          }
-        },
       ),
     );
   }
