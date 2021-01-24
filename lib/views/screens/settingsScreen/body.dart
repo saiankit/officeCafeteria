@@ -62,6 +62,13 @@ class _BodyState extends State<Body> {
 
 void clearUserData() async {
   await secureStorage.write(key: 'jwt', value: "");
+  await secureStorage.write(key: 'name', value: "");
+  await secureStorage.write(key: 'organization', value: "");
+  await secureStorage.write(key: 'employeeId', value: "");
+  await secureStorage.write(key: 'phoneNumber', value: "");
+  await secureStorage.write(key: 'email', value: "");
+  await secureStorage.write(key: 'password', value: "");
+  await secureStorage.write(key: 'registrationId', value: "");
 }
 
 void showLogOutDialog(BuildContext context) {

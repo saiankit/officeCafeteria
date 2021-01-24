@@ -2,10 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:officecafeteria/providers/userDataProvider.dart';
-import 'package:officecafeteria/services/registerUser.dart';
 
 import 'package:officecafeteria/utilities/colors.dart';
-import 'package:officecafeteria/views/common/loadingWidget.dart';
 import 'package:officecafeteria/views/common/submitButton.dart';
 import 'package:officecafeteria/views/screens/previewScreen/previewScreen.dart';
 import 'package:provider/provider.dart';
@@ -85,21 +83,13 @@ class _UserDetailsState extends State<UserDetails> {
                 onPressed: () async {
                   if (userData.oraganisationName != null &&
                       userData.phoneNumber != null &&
-                      userData.employeeId != null) {
+                      userData.employeeId != null &&
+                      userData.idCardImage != null) {
                     Future.delayed(Duration.zero, () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PreviewScreen(
-                            name: userData.fullName,
-                            organization: userData.oraganisationName,
-                            phoneNumber: userData.phoneNumber,
-                            email: userData.email,
-                            employeeId: userData.employeeId,
-                            imagePath: userData.idCardImage == null
-                                ? ""
-                                : userData.idCardImage,
-                          ),
+                          builder: (context) => PreviewScreen(),
                         ),
                       );
                     });

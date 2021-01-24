@@ -18,7 +18,6 @@ Future<List<String>> loginUser({
   LoginResponse mapped = loginResponseFromJson(response.body);
 
   String statusCode = response.statusCode.toString();
-  print(loginResponseFromJson(response.body).token);
   print('User POST request Status Code : ' + statusCode);
   if (statusCode == '201') {
     print('User POST successfull');

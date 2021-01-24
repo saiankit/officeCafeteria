@@ -157,35 +157,34 @@ class _PlaceOrderButtonState extends State<PlaceOrderButton> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Consumer<CategoriesProvider>(
-            builder: (context, catProvider, _) => SizedBox(
-              width: 250,
-              child: Consumer<CartProvider>(
-                builder: (context, cartProvider, _) => FutureBuilder<String>(
-                    future: getRegistrationId(),
-                    builder: (context, snapshot) {
-                      return DefaultButton(
-                        text: "Place Order",
-                        press: () async {
-                          var statusCode = await bookOrder(
-                                  registrationId: "${snapshot.data}",
-                                  cartList: cartItemList)
-                              .catchError((error) => print(error));
-                          if (statusCode == '201') {
-                            cartProvider.clearItems();
-                            catProvider.toggleOrderSuccess();
+          SizedBox(
+            width: 250,
+            child: Consumer2<CartProvider, CategoriesProvider>(
+              builder: (context, cartProvider, catProvider, _) =>
+                  FutureBuilder<String>(
+                      future: getRegistrationId(),
+                      builder: (context, snapshot) {
+                        return DefaultButton(
+                          text: "Place Order",
+                          press: () async {
+                            var statusCode = await bookOrder(
+                                    registrationId: "${snapshot.data}",
+                                    cartList: cartItemList)
+                                .catchError((error) => print(error));
+                            if (statusCode == '201') {
+                              cartProvider.clearItems();
+                              catProvider.toggleOrderSuccess();
 
-                            Future.delayed(Duration.zero, () {
-                              Navigator.pop(context);
-                            });
-                            Future.delayed(Duration.zero, () {
-                              Navigator.pop(context);
-                            });
-                          }
-                        },
-                      );
-                    }),
-              ),
+                              Future.delayed(Duration.zero, () {
+                                Navigator.pop(context);
+                              });
+                              Future.delayed(Duration.zero, () {
+                                Navigator.pop(context);
+                              });
+                            }
+                          },
+                        );
+                      }),
             ),
           ),
         ],

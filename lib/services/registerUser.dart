@@ -1,5 +1,5 @@
-import 'dart:io';
 import 'dart:async';
+import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:officecafeteria/utilities/endpoints.dart';
 
@@ -20,14 +20,40 @@ Future<List<String>> registerUser({
     "email": "$email",
     "password": "$password"
   }''';
-  var response = await post(API.registerUser, headers: headers, body: json);
+  Response response =
+      await post(API.registerUser, headers: headers, body: json);
+
+  RegistrationResponse mapped = registrationResponseFromJson(response.body);
+
   String statusCode = response.statusCode.toString();
-  String jwtToken = response.body[0].toString();
   print('User POST request Status Code : ' + statusCode);
   if (statusCode == '201') {
     print('User POST successfull');
   } else {
     print('User POST Failed');
   }
-  return [statusCode, jwtToken];
+  return [mapped.token, statusCode];
+}
+
+RegistrationResponse registrationResponseFromJson(String str) =>
+    RegistrationResponse.fromJson(json.decode(str));
+
+String registrationResponseToJson(RegistrationResponse data) =>
+    json.encode(data.toJson());
+
+class RegistrationResponse {
+  RegistrationResponse({
+    this.token,
+  });
+
+  String token;
+
+  factory RegistrationResponse.fromJson(Map<String, dynamic> json) =>
+      RegistrationResponse(
+        token: json["token"] == null ? null : json["token"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "token": token == null ? null : token,
+      };
 }

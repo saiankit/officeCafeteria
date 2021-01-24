@@ -2,7 +2,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart';
 import 'package:officecafeteria/models/serverModels/myInfo.dart';
 import 'package:officecafeteria/utilities/endpoints.dart';
-import 'dart:convert';
 
 final secureStorage = FlutterSecureStorage();
 Future<String> aboutMe({String jwtToken}) async {

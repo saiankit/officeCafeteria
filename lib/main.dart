@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:officecafeteria/providers/cartProvider.dart';
 import 'package:officecafeteria/providers/categoriesProvider.dart';
+import 'package:officecafeteria/providers/loadingProvider.dart';
 import 'package:officecafeteria/providers/productCount.dart';
 import 'package:officecafeteria/providers/userDataProvider.dart';
 import 'package:officecafeteria/utilities/colors.dart';
@@ -34,10 +35,11 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => CategoriesProvider()),
         ChangeNotifierProvider(create: (_) => ProductCount()),
         ChangeNotifierProvider(create: (_) => CartProvider()),
+        ChangeNotifierProvider(create: (_) => LoadingProvider()),
       ],
       child: MaterialApp(
         theme: ThemeData(
-          textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
+          textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
           primaryColor: AppColors.secondaryColor,
           accentColor: AppColors.secondaryColor,
           visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -55,7 +57,7 @@ class CustomAuthWrapper extends StatefulWidget {
 }
 
 class _CustomAuthWrapperState extends State<CustomAuthWrapper> {
-  Future<String> get jwtOrEmpty async {
+  Future<String> get getJwt async {
     var jwt = await secureStorage.read(key: "jwt");
     if (jwt == null) return "";
     return jwt;
@@ -65,7 +67,7 @@ class _CustomAuthWrapperState extends State<CustomAuthWrapper> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-        future: jwtOrEmpty,
+        future: getJwt,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:officecafeteria/providers/loadingProvider.dart';
 import 'package:officecafeteria/services/aboutMe.dart';
 import 'package:officecafeteria/services/loginUser.dart';
 import 'package:officecafeteria/views/common/loadingWidget.dart';
@@ -23,7 +24,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordSnackBar =
       SnackBar(content: Text('Please enter a valid password'));
   final emailSnackBar = SnackBar(content: Text('Please enter a valid e-mail'));
-  bool isLoading = false;
   saveJwt(String token) async {
     await secureStorage.write(key: 'jwt', value: token);
   }
@@ -37,11 +37,11 @@ class _LoginScreenState extends State<LoginScreen> {
         elevation: 0,
       ),
       body: Builder(
-        builder: (context) => Consumer<UserDataProvider>(
-          builder: (context, userData, _) => Stack(
+        builder: (context) => Consumer2<UserDataProvider, LoadingProvider>(
+          builder: (context, userData, loadingProvider, _) => Stack(
             children: [
-              isLoading
-                  ? loginLoading(context)
+              loadingProvider.loginLoading
+                  ? loginLoading()
                   : Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -73,9 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Scaffold.of(context)
                                   .showSnackBar(passwordSnackBar);
                             } else {
-                              setState(() {
-                                isLoading = true;
-                              });
+                              loadingProvider.toggleLoginLoading();
                               var loginResponse = await loginUser(
                                   email: userData.email,
                                   password: userData.password);
@@ -88,9 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               // Verifying the POST Status Code and routing user to HomeScreen
                               var statusCode = loginResponse[1];
                               if (statusCode == '201') {
-                                setState(() {
-                                  isLoading = false;
-                                });
+                                loadingProvider.toggleLoginLoading();
                                 Future.delayed(Duration.zero, () {
                                   Navigator.pop(context);
                                 });
@@ -111,17 +107,23 @@ class _LoginScreenState extends State<LoginScreen> {
                           flip: true,
                           label: "REGISTER",
                           onPressed: () {
-                            Future.delayed(Duration.zero, () {
-                              Navigator.pop(context);
-                            });
-                            Future.delayed(Duration.zero, () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => RegisterUser(),
-                                ),
-                              );
-                            });
+                            Future.delayed(
+                              Duration.zero,
+                              () {
+                                Navigator.pop(context);
+                              },
+                            );
+                            Future.delayed(
+                              Duration.zero,
+                              () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => RegisterUser(),
+                                  ),
+                                );
+                              },
+                            );
                           },
                         ),
                       ],
