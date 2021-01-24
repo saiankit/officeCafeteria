@@ -3,7 +3,7 @@ import 'package:officecafeteria/models/product.dart';
 List<Product> bevarages = [
   Product(
     id: 9,
-    price: 56,
+    price: 40,
     title: "Espresso Coffee",
     image: "assets/coffee.svg",
     description:
@@ -11,7 +11,7 @@ List<Product> bevarages = [
   ),
   Product(
     id: 10,
-    price: 39,
+    price: 20,
     title: "Hot tea",
     image: "assets/hot-tea.svg",
     description:
@@ -19,7 +19,7 @@ List<Product> bevarages = [
   ),
   Product(
     id: 11,
-    price: 39,
+    price: 50,
     title: "Cola",
     image: "assets/cola.svg",
     description:
@@ -27,7 +27,7 @@ List<Product> bevarages = [
   ),
   Product(
     id: 12,
-    price: 39,
+    price: 98,
     title: "Cocktail",
     image: "assets/cocktail.svg",
     description:
@@ -35,7 +35,7 @@ List<Product> bevarages = [
   ),
   Product(
     id: 13,
-    price: 39,
+    price: 40,
     title: "Orange Juice",
     image: "assets/orange-juice.svg",
     description:
@@ -45,7 +45,7 @@ List<Product> bevarages = [
 List<Product> icecreamsAndCakes = [
   Product(
     id: 14,
-    price: 39,
+    price: 75,
     title: "Chocolate Sundae",
     image: "assets/choclate-sundae.svg",
     description:
@@ -53,7 +53,7 @@ List<Product> icecreamsAndCakes = [
   ),
   Product(
     id: 15,
-    price: 39,
+    price: 25,
     title: "Multiflavoured Stick",
     image: "assets/ice-cream (2).svg",
     description:
@@ -61,7 +61,7 @@ List<Product> icecreamsAndCakes = [
   ),
   Product(
     id: 16,
-    price: 39,
+    price: 35,
     title: "Banana Split Icecream",
     image: "assets/ice-cream.svg",
     description:
@@ -69,7 +69,7 @@ List<Product> icecreamsAndCakes = [
   ),
   Product(
     id: 17,
-    price: 39,
+    price: 40,
     title: "Soft Serve Icecream",
     image: "assets/ice-cream (4).svg",
     description:
@@ -77,7 +77,7 @@ List<Product> icecreamsAndCakes = [
   ),
   Product(
     id: 18,
-    price: 39,
+    price: 50,
     title: "Strawberry Popsicle",
     image: "assets/strawberry-popsicle.svg",
     description:
@@ -85,7 +85,7 @@ List<Product> icecreamsAndCakes = [
   ),
   Product(
     id: 19,
-    price: 68,
+    price: 60,
     title: "Pineapple Pastry",
     image: "assets/cake.svg",
     description:
@@ -93,7 +93,7 @@ List<Product> icecreamsAndCakes = [
   ),
   Product(
     id: 20,
-    price: 39,
+    price: 40,
     title: "Donut",
     image: "assets/donut.svg",
     description:
@@ -101,7 +101,7 @@ List<Product> icecreamsAndCakes = [
   ),
   Product(
     id: 21,
-    price: 39,
+    price: 30,
     title: "Muffin",
     image: "assets/muffin.svg",
     description:
@@ -112,7 +112,7 @@ List<Product> icecreamsAndCakes = [
 List<Product> food = [
   Product(
     id: 22,
-    price: 39,
+    price: 130,
     title: "Chicken Hamburger",
     image: "assets/hamburger.svg",
     description:
@@ -120,7 +120,7 @@ List<Product> food = [
   ),
   Product(
     id: 23,
-    price: 39,
+    price: 230,
     title: "Pizza",
     image: "assets/pizza.svg",
     description:
@@ -136,7 +136,7 @@ List<Product> food = [
   ),
   Product(
     id: 25,
-    price: 39,
+    price: 48,
     title: "Sandwich",
     image: "assets/sandwich.svg",
     description:
@@ -144,7 +144,7 @@ List<Product> food = [
   ),
   Product(
     id: 26,
-    price: 39,
+    price: 86,
     title: "Grilled Sandwich",
     image: "assets/grilled-sandwich.svg",
     description:
@@ -152,7 +152,7 @@ List<Product> food = [
   ),
   Product(
     id: 27,
-    price: 39,
+    price: 52,
     title: "Hot Dog",
     image: "assets/hot-dog.svg",
     description:
@@ -160,7 +160,7 @@ List<Product> food = [
   ),
   Product(
     id: 28,
-    price: 39,
+    price: 81,
     title: "Noodles",
     image: "assets/noodles.svg",
     description:
@@ -168,7 +168,7 @@ List<Product> food = [
   ),
   Product(
     id: 29,
-    price: 39,
+    price: 169,
     title: "Chicken Nuggets",
     image: "assets/nuggets.svg",
     description:
@@ -179,7 +179,7 @@ List<Product> food = [
 List<Product> snacks = [
   Product(
     id: 30,
-    price: 30,
+    price: 150,
     title: "Popcorn",
     image: "assets/popcorn.svg",
     description:
@@ -187,7 +187,7 @@ List<Product> snacks = [
   ),
   Product(
     id: 31,
-    price: 39,
+    price: 98,
     title: "French Fries",
     image: "assets/french-fries.svg",
     description:
@@ -203,7 +203,7 @@ List<Product> snacks = [
   ),
   Product(
     id: 33,
-    price: 39,
+    price: 45,
     title: "Vegetable Salad",
     image: "assets/salad.svg",
     description:

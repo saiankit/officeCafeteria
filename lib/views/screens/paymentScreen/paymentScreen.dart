@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:officecafeteria/providers/cartProvider.dart';
 import 'package:officecafeteria/providers/categoriesProvider.dart';
+import 'package:officecafeteria/providers/loadingProvider.dart';
 import 'package:officecafeteria/services/saveOrder.dart';
 import 'package:officecafeteria/utilities/colors.dart';
 import 'package:officecafeteria/views/common/loadingWidget.dart';
+import 'package:officecafeteria/views/screens/paymentScreen/components/paymentOption.dart';
 import 'package:officecafeteria/views/screens/shoppingCartScreen/shoppingCartScreen.dart';
 import 'package:provider/provider.dart';
 
@@ -19,101 +20,61 @@ class PaymentScreen extends StatefulWidget {
 class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.homeScreenColor,
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: AppColors.secondaryColor,
-          ),
-          onPressed: () {
-            Future.delayed(Duration.zero, () {
-              Navigator.pop(context);
-            });
-          },
-        ),
-        elevation: 0,
-        title: Text(
-          "Payment",
-          style: TextStyle(color: Colors.black),
-        ),
+    return Consumer<LoadingProvider>(
+      builder: (context, loadingProvider, _) => Scaffold(
         backgroundColor: AppColors.homeScreenColor,
-      ),
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              Spacer(),
-              PlaceOrderButton(),
-            ],
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: AppColors.secondaryColor,
+            ),
+            onPressed: () {
+              Future.delayed(Duration.zero, () {
+                Navigator.pop(context);
+              });
+            },
           ),
-          Column(
-            children: [
-              PaymentOption(
-                text: "Cash",
-                icon: "assets/cash.svg",
-              ),
-              PaymentOption(
-                text: "Credit Card",
-                icon: "assets/credit-card (1).svg",
-              ),
-              PaymentOption(
-                text: "Netbanking",
-                icon: "assets/online-banking.svg",
-              ),
-            ],
+          elevation: 0,
+          title: Text(
+            "Payment",
+            style: TextStyle(color: Colors.black),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class PaymentOption extends StatefulWidget {
-  final String icon;
-  final String text;
-
-  const PaymentOption({Key key, this.icon, this.text}) : super(key: key);
-  @override
-  _PaymentOptionState createState() => _PaymentOptionState();
-}
-
-class _PaymentOptionState extends State<PaymentOption> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: AppColors.secondaryColor,
-          ),
-          borderRadius: BorderRadius.circular(15),
+          backgroundColor: AppColors.homeScreenColor,
         ),
-        child: FlatButton(
-          padding: EdgeInsets.all(20),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          color: Color(0xFFF5F6F9),
-          onPressed: () {},
-          child: Row(
-            children: [
-              SvgPicture.asset(
-                widget.icon,
-                width: 30,
-              ),
-              SizedBox(width: 20),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.text,
-                  ),
-                ],
-              ),
-            ],
-          ),
+        body: Builder(
+          builder: (context) => loadingProvider.orderLoading
+              ? orderLoading()
+              : Stack(
+                  children: [
+                    Column(
+                      children: [
+                        Spacer(),
+                        PlaceOrderButton(),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        PaymentOption(
+                          text: "Cash",
+                          icon: "assets/cash.svg",
+                        ),
+                        PaymentOption(
+                          text: "Credit Card",
+                          icon: "assets/credit-card (1).svg",
+                        ),
+                        PaymentOption(
+                          text: "Net Banking",
+                          icon: "assets/online-banking.svg",
+                        ),
+                        PaymentOption(
+                          text: "UPI",
+                          icon: "assets/money-transfer.svg",
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
         ),
       ),
     );
@@ -159,32 +120,35 @@ class _PlaceOrderButtonState extends State<PlaceOrderButton> {
         children: [
           SizedBox(
             width: 250,
-            child: Consumer2<CartProvider, CategoriesProvider>(
-              builder: (context, cartProvider, catProvider, _) =>
-                  FutureBuilder<String>(
-                      future: getRegistrationId(),
-                      builder: (context, snapshot) {
-                        return DefaultButton(
-                          text: "Place Order",
-                          press: () async {
-                            var statusCode = await bookOrder(
-                                    registrationId: "${snapshot.data}",
-                                    cartList: cartItemList)
-                                .catchError((error) => print(error));
-                            if (statusCode == '201') {
-                              cartProvider.clearItems();
-                              catProvider.toggleOrderSuccess();
-
-                              Future.delayed(Duration.zero, () {
-                                Navigator.pop(context);
-                              });
-                              Future.delayed(Duration.zero, () {
-                                Navigator.pop(context);
-                              });
-                            }
-                          },
-                        );
-                      }),
+            child: Consumer3<CartProvider, CategoriesProvider, LoadingProvider>(
+              builder:
+                  (context, cartProvider, catProvider, loadingProvider, _) =>
+                      FutureBuilder<String>(
+                future: getRegistrationId(),
+                builder: (context, snapshot) {
+                  return DefaultButton(
+                    text: "Place Order",
+                    press: () async {
+                      loadingProvider.toggleOrderLoading();
+                      var statusCode = await bookOrder(
+                              registrationId: "${snapshot.data}",
+                              cartList: cartItemList)
+                          .catchError((error) => print(error));
+                      if (statusCode == '201') {
+                        cartProvider.clearItems();
+                        catProvider.toggleOrderSuccess();
+                        loadingProvider.toggleOrderLoading();
+                        Future.delayed(Duration.zero, () {
+                          Navigator.pop(context);
+                        });
+                        Future.delayed(Duration.zero, () {
+                          Navigator.pop(context);
+                        });
+                      }
+                    },
+                  );
+                },
+              ),
             ),
           ),
         ],

@@ -9,3 +9,11 @@ Widget loginLoading() => Column(
         SpinKitPouringHourglass(color: AppColors.secondaryColor),
       ],
     );
+
+Widget orderLoading() => Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text('Placing your Order...', style: TextStyle(fontSize: 20.0)),
+        SpinKitDoubleBounce(color: AppColors.secondaryColor),
+      ],
+    );

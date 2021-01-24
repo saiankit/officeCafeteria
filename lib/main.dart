@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:officecafeteria/providers/cartProvider.dart';
 import 'package:officecafeteria/providers/categoriesProvider.dart';
 import 'package:officecafeteria/providers/loadingProvider.dart';
+import 'package:officecafeteria/providers/paymentProvider.dart';
 import 'package:officecafeteria/providers/productCount.dart';
 import 'package:officecafeteria/providers/userDataProvider.dart';
 import 'package:officecafeteria/utilities/colors.dart';
@@ -36,6 +37,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => ProductCount()),
         ChangeNotifierProvider(create: (_) => CartProvider()),
         ChangeNotifierProvider(create: (_) => LoadingProvider()),
+        ChangeNotifierProvider(create: (_) => PaymentProvider()),
       ],
       child: MaterialApp(
         theme: ThemeData(

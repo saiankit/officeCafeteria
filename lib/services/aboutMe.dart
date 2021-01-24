@@ -10,7 +10,6 @@ Future<String> aboutMe({String jwtToken}) async {
     "x-access-token": "$jwtToken",
   };
   Response response = await get(API.aboutMe, headers: headers);
-
   String statusCode = response.statusCode.toString();
   MyInfo myInfo = myInfoFromJson(response.body);
   print('User GET request Status Code : ' + statusCode);
