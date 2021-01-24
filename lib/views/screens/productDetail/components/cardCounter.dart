@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:officecafeteria/providers/productCount.dart';
+import 'package:officecafeteria/providers/changeNotifiers/productCount.dart';
 import 'package:provider/provider.dart';
 
 class CartCounter extends StatefulWidget {

@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:officecafeteria/models/cartItem.dart';
+import 'package:officecafeteria/models/serverModels/myOrder.dart';
 import 'package:officecafeteria/utilities/endpoints.dart';
 
-Future<String> bookOrder({
+Future<List<dynamic>> bookOrder({
   String registrationId,
   List<CartItem> cartList,
   String takeAwayTime,
@@ -20,14 +21,14 @@ Future<String> bookOrder({
 
   var response = await post(urlPOSTorder, headers: headers, body: json);
   String statusCode = response.statusCode.toString();
-  print(response.body);
+  MyOrder myOrderResponse = myOrderFromJson(response.body);
   print('Order POST request Status Code : ' + statusCode);
   if (statusCode == '201') {
     print('Order POST successfull');
   } else {
     print('Order POST Failed');
   }
-  return statusCode;
+  return [statusCode, myOrderResponse];
 }
 
 class OrderList {

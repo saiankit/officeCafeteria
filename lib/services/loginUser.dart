@@ -27,10 +27,6 @@ Future<List<String>> loginUser({
   return [mapped.token, statusCode];
 }
 
-// To parse this JSON data, do
-//
-//     final loginResponse = loginResponseFromJson(jsonString);
-
 LoginResponse loginResponseFromJson(String str) =>
     LoginResponse.fromJson(json.decode(str));
 

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:officecafeteria/providers/changeNotifiers/cartProvider.dart';
+import 'package:officecafeteria/providers/changeNotifiers/categoriesProvider.dart';
+import 'package:officecafeteria/providers/changeNotifiers/loadingProvider.dart';
+import 'package:officecafeteria/providers/changeNotifiers/orderProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:date_format/date_format.dart';
-import 'package:officecafeteria/providers/cartProvider.dart';
-import 'package:officecafeteria/providers/categoriesProvider.dart';
-import 'package:officecafeteria/providers/loadingProvider.dart';
 import 'package:officecafeteria/services/saveOrder.dart';
 import 'package:officecafeteria/utilities/colors.dart';
 import 'package:officecafeteria/views/common/loadingWidget.dart';
@@ -64,124 +65,128 @@ class _PaymentScreenState extends State<PaymentScreen> {
     dateTime = DateFormat.yMd().format(DateTime.now());
     return Consumer3<LoadingProvider, CartProvider, CategoriesProvider>(
       builder: (context, loadingProvider, cartProvider, catProvider, _) =>
-          Scaffold(
-        backgroundColor: AppColors.homeScreenColor,
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: AppColors.secondaryColor,
-            ),
-            onPressed: () {
-              Future.delayed(Duration.zero, () {
-                Navigator.pop(context);
-              });
-            },
-          ),
-          elevation: 0,
-          title: Text(
-            "Payment",
-            style: TextStyle(color: Colors.black),
-          ),
+          Padding(
+        padding: EdgeInsets.only(top: 10.0),
+        child: Scaffold(
           backgroundColor: AppColors.homeScreenColor,
-        ),
-        body: Builder(
-          builder: (context) => loadingProvider.orderLoading
-              ? orderLoading()
-              : Stack(
-                  children: [
-                    Column(
-                      children: [
-                        Spacer(),
-                        PlaceOrderRow(
-                          paymentScreenContext: paymentScreencontext,
-                          takeAwayTime: _timeController.text,
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        PaymentOption(
-                          text: "Cash",
-                          icon: "assets/cash.svg",
-                        ),
-                        PaymentOption(
-                          text: "Credit Card",
-                          icon: "assets/credit-card (1).svg",
-                        ),
-                        PaymentOption(
-                          text: "Net Banking",
-                          icon: "assets/online-banking.svg",
-                        ),
-                        PaymentOption(
-                          text: "UPI",
-                          icon: "assets/money-transfer.svg",
-                        ),
-                        SizedBox(
-                          height: 50.0,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 10),
-                          child: Row(
-                            children: [
-                              Text(
-                                "Choose Take - Away time",
-                                style: Theme.of(context).textTheme.subtitle1,
-                              ),
-                            ],
+          appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: AppColors.secondaryColor,
+              ),
+              onPressed: () {
+                Future.delayed(Duration.zero, () {
+                  Navigator.pop(context);
+                });
+              },
+            ),
+            elevation: 0,
+            title: Text(
+              "Payment",
+              style: TextStyle(color: Colors.black),
+            ),
+            backgroundColor: AppColors.homeScreenColor,
+          ),
+          body: Builder(
+            builder: (context) => loadingProvider.orderLoading
+                ? orderLoading()
+                : Stack(
+                    children: [
+                      Column(
+                        children: [
+                          Spacer(),
+                          PlaceOrderRow(
+                            paymentScreenContext: paymentScreencontext,
+                            takeAwayTime: _timeController.text,
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: AppColors.secondaryColor,
-                              ),
-                              borderRadius: BorderRadius.circular(15),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          PaymentOption(
+                            text: "Cash",
+                            icon: "assets/cash.svg",
+                          ),
+                          PaymentOption(
+                            text: "Credit Card",
+                            icon: "assets/credit-card (1).svg",
+                          ),
+                          PaymentOption(
+                            text: "Net Banking",
+                            icon: "assets/online-banking.svg",
+                          ),
+                          PaymentOption(
+                            text: "UPI",
+                            icon: "assets/money-transfer.svg",
+                          ),
+                          SizedBox(
+                            height: 50.0,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 10),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Choose Take - Away time",
+                                  style: Theme.of(context).textTheme.subtitle1,
+                                ),
+                              ],
                             ),
-                            child: FlatButton(
-                              onPressed: () {
-                                _selectTime(context);
-                              },
-                              padding: EdgeInsets.all(20),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/chronometer.svg",
-                                    width: 30,
-                                  ),
-                                  Expanded(
-                                    child: TextFormField(
-                                      style:
-                                          Theme.of(context).textTheme.subtitle2,
-                                      textAlign: TextAlign.center,
-                                      onSaved: (String val) {
-                                        _setTime = val;
-                                      },
-                                      enabled: false,
-                                      keyboardType: TextInputType.text,
-                                      controller: _timeController,
-                                      decoration: InputDecoration(
-                                        disabledBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide.none),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: AppColors.secondaryColor,
+                                ),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: FlatButton(
+                                onPressed: () {
+                                  _selectTime(context);
+                                },
+                                padding: EdgeInsets.all(20),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SvgPicture.asset(
+                                      "assets/chronometer.svg",
+                                      width: 30,
+                                    ),
+                                    Expanded(
+                                      child: TextFormField(
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle1,
+                                        textAlign: TextAlign.center,
+                                        onSaved: (String val) {
+                                          _setTime = val;
+                                        },
+                                        enabled: false,
+                                        keyboardType: TextInputType.text,
+                                        controller: _timeController,
+                                        decoration: InputDecoration(
+                                          disabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide.none),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                        ],
+                      ),
+                    ],
+                  ),
+          ),
         ),
       ),
     );
@@ -221,8 +226,10 @@ class PlaceOrderRow extends StatelessWidget {
           )
         ],
       ),
-      child: Consumer3<CartProvider, LoadingProvider, CategoriesProvider>(
-        builder: (context, cartProvider, loadingProvider, catProvider, _) =>
+      child: Consumer4<CartProvider, LoadingProvider, CategoriesProvider,
+          OrderProvider>(
+        builder: (context, cartProvider, loadingProvider, catProvider,
+                orderProvider, _) =>
             Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -246,15 +253,18 @@ class PlaceOrderRow extends StatelessWidget {
                     text: "Place Order",
                     press: () async {
                       loadingProvider.toggleOrderLoading();
-                      var statusCode = await bookOrder(
+                      var response = await bookOrder(
                         registrationId: "${snapshot.data}",
                         cartList: cartItemList,
                         takeAwayTime: this.takeAwayTime,
                       );
-                      if (statusCode == '201') {
+                      print(response[1].orderProducts);
+                      if (response[0] == '201') {
                         cartProvider.clearItems();
                         catProvider.toggleOrderSuccess();
                         loadingProvider.toggleOrderLoading();
+                        orderProvider.toggleOrder();
+                        orderProvider.addMyOrder(response[1]);
                         Future.delayed(Duration.zero, () {
                           Navigator.pop(paymentScreenContext);
                         });

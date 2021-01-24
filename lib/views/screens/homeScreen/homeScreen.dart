@@ -1,20 +1,24 @@
 // Packages Import
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:officecafeteria/views/screens/homeScreen/components/settingsIcon.dart';
 import 'package:provider/provider.dart';
 
 // Providers
-import '../../../providers/categoriesProvider.dart';
+
+import '../../../providers/changeNotifiers/categoriesProvider.dart';
+import '../../../providers/changeNotifiers/orderProvider.dart';
 
 //Utilities
 import '../../../data/products.dart';
+import '../../../utilities/colors.dart';
 
 //Components
 import 'components/cartIcon.dart';
 import 'components/categoryList.dart';
 import 'components/orderSuccessContainer.dart';
 import 'components/productList.dart';
+import 'components/orderIcon.dart';
+import 'components/settingsIcon.dart';
 
 final secureStorage = FlutterSecureStorage();
 
@@ -31,40 +35,46 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        actions: [
-          CartIcon(),
-          SettingsIcon(),
-        ],
-        title: FutureBuilder(
-            future: getUserName(),
-            builder: (context, snapshot) {
-              return Text(
-                "Hello, " + snapshot.data.toString(),
-                style: TextStyle(color: Colors.black),
-              );
-            }),
-        centerTitle: false,
-      ),
-      body: SafeArea(
-        bottom: false,
-        child: Consumer<CategoriesProvider>(
-          builder: (context, categories, _) => Column(
-            children: [
-              categories.isOrderSuccess ? OrderSuccessContainer() : Container(),
-              CategoryList(),
-              categories.categoryIndex == 0
-                  ? ProductsList(list: food)
-                  : categories.categoryIndex == 1
-                      ? ProductsList(list: snacks)
-                      : categories.categoryIndex == 2
-                          ? ProductsList(list: bevarages)
-                          : ProductsList(list: icecreamsAndCakes)
+    return Consumer2<OrderProvider, CategoriesProvider>(
+      builder: (context, orderProvider, categoriesProvider, _) => Padding(
+        padding: EdgeInsets.only(top: 10.0),
+        child: Scaffold(
+          backgroundColor: AppColors.homeScreenColor,
+          appBar: AppBar(
+            backgroundColor: AppColors.homeScreenColor,
+            elevation: 0,
+            actions: [
+              orderProvider.isOrder ? OrderIcon() : Container(),
+              CartIcon(),
+              SettingsIcon(),
             ],
+            title: FutureBuilder(
+                future: getUserName(),
+                builder: (context, snapshot) {
+                  return Text(
+                    "Hello, " + snapshot.data.toString(),
+                    style: TextStyle(color: Colors.black),
+                  );
+                }),
+            centerTitle: false,
+          ),
+          body: SafeArea(
+            bottom: false,
+            child: Column(
+              children: [
+                categoriesProvider.isOrderSuccess
+                    ? OrderSuccessContainer()
+                    : Container(),
+                CategoryList(),
+                categoriesProvider.categoryIndex == 0
+                    ? ProductsList(list: food)
+                    : categoriesProvider.categoryIndex == 1
+                        ? ProductsList(list: snacks)
+                        : categoriesProvider.categoryIndex == 2
+                            ? ProductsList(list: bevarages)
+                            : ProductsList(list: icecreamsAndCakes)
+              ],
+            ),
           ),
         ),
       ),

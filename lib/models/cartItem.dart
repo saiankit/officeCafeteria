@@ -12,5 +12,6 @@ class CartItem {
         "title": product.title == null ? null : product.title,
         "description": product.description == null ? null : product.description,
         "count": productCount == null ? null : productCount,
+        "image": product.image == null ? null : product.image,
       };
 }

@@ -333,6 +333,22 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.3.2+4"
+  qr:
+    dependency: transitive
+    description:
+      name: qr
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.3.0"
+  qr_flutter:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "857f0587f911b2f0bc1c33dcabdb82062463bdaa"
+      url: "git://github.com/lukef/qr.flutter.git"
+    source: git
+    version: "3.2.0"
   sky_engine:
     dependency: transitive
     description: flutter

@@ -1,5 +1,5 @@
 name: officecafeteria
-description: App to cater user registration and Pre-booking for Office Cafetaria.
+description: App to cater user registration and Pre-booking for Office cafeteria.
 
 publish_to: 'none'
 
@@ -23,6 +23,9 @@ dependencies:
   flutter_native_image:
   flutter_spinkit:
   flutter_launcher_icons: ^0.7.5
+  qr_flutter:
+    git:
+      url: git://github.com/lukef/qr.flutter.git
 
 dev_dependencies:
   flutter_test:

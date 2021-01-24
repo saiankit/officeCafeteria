@@ -1,31 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:officecafeteria/providers/categoriesProvider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:officecafeteria/utilities/colors.dart';
+import 'package:officecafeteria/views/screens/homeScreen/components/dismissIcon.dart';
 import 'package:officecafeteria/views/screens/viewOrder/viewOrderScreen.dart';
 import 'package:provider/provider.dart';
+import '../../../../providers/changeNotifiers/categoriesProvider.dart';
 
 class OrderSuccessContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SizedBox buildOutlineButton({IconData icon, Function press}) {
-      return SizedBox(
-        width: 30,
-        height: 30,
-        child: OutlineButton(
-          padding: EdgeInsets.zero,
-          color: Color(0xffD3FFD9),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50),
-          ),
-          onPressed: press,
-          child: Icon(
-            icon,
-            color: AppColors.secondaryColor,
-          ),
-        ),
-      );
-    }
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       child: Container(
@@ -48,15 +31,7 @@ class OrderSuccessContainer extends StatelessWidget {
                 ),
                 Spacer(),
                 Consumer<CategoriesProvider>(
-                  builder: (context, catProvider, _) => Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: buildOutlineButton(
-                        icon: Icons.clear,
-                        press: () {
-                          catProvider.dismissOrderSuccess();
-                        }),
-                  ),
-                ),
+                    builder: (context, catProvider, _) => DismissIcon()),
               ],
             ),
             InkWell(

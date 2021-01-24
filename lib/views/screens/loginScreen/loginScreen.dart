@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:officecafeteria/providers/loadingProvider.dart';
+import 'package:officecafeteria/providers/changeNotifiers/loadingProvider.dart';
+import 'package:officecafeteria/providers/changeNotifiers/userDataProvider.dart';
 import 'package:officecafeteria/services/aboutMe.dart';
 import 'package:officecafeteria/services/loginUser.dart';
 import 'package:officecafeteria/views/common/loadingWidget.dart';
 import '../userRegistration/registerUserScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:officecafeteria/utilities/colors.dart';
-import '../../../providers/userDataProvider.dart';
 import '../../common/submitButton.dart';
 import '../homeScreen/homeScreen.dart';
 import '../userRegistration/components/userDataTextField.dart';
@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Office Cafetaria",
+                          "Office cafeteria",
                           style: Theme.of(context).textTheme.headline4,
                         ),
                         SizedBox(
@@ -86,18 +86,21 @@ class _LoginScreenState extends State<LoginScreen> {
                               // Verifying the POST Status Code and routing user to HomeScreen
                               var statusCode = loginResponse[1];
                               if (statusCode == '201') {
-                                loadingProvider.toggleLoginLoading();
-                                Future.delayed(Duration.zero, () {
-                                  Navigator.pop(context);
-                                });
-                                Future.delayed(Duration.zero, () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => HomeScreen(),
-                                    ),
-                                  );
-                                });
+                                if (aboutMyInfo[0] == '200') {
+                                  loadingProvider.toggleLoginLoading();
+
+                                  Future.delayed(Duration.zero, () {
+                                    Navigator.pop(context);
+                                  });
+                                  Future.delayed(Duration.zero, () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => HomeScreen(),
+                                      ),
+                                    );
+                                  });
+                                }
                               }
                             }
                           },

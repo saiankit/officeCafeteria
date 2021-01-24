@@ -11,29 +11,32 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.homeScreenColor,
-      appBar: AppBar(
-        title: Text(
-          "Settings",
-          style: TextStyle(color: Colors.black),
-        ),
+    return Padding(
+      padding: EdgeInsets.only(top: 10.0),
+      child: Scaffold(
         backgroundColor: AppColors.homeScreenColor,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: AppColors.secondaryColor,
+        appBar: AppBar(
+          title: Text(
+            "Settings",
+            style: TextStyle(color: Colors.black),
           ),
-          onPressed: () {
-            Future.delayed(Duration.zero, () {
-              Navigator.pop(context);
-            });
-          },
+          backgroundColor: AppColors.homeScreenColor,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: AppColors.secondaryColor,
+            ),
+            onPressed: () {
+              Future.delayed(Duration.zero, () {
+                Navigator.pop(context);
+              });
+            },
+          ),
+          elevation: 0,
+          centerTitle: false,
         ),
-        elevation: 0,
-        centerTitle: false,
+        body: Body(),
       ),
-      body: Body(),
     );
   }
 }

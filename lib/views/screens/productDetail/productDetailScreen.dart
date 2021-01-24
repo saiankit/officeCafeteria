@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:officecafeteria/providers/productCount.dart';
+import 'package:officecafeteria/providers/changeNotifiers/productCount.dart';
 import 'package:officecafeteria/utilities/colors.dart';
 import 'package:provider/provider.dart';
 import '../../../models/product.dart';
@@ -22,22 +22,25 @@ class DetailsScreen extends StatelessWidget {
   const DetailsScreen({Key key, this.product}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.homeScreenColor,
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Future.delayed(Duration.zero, () {
-              Navigator.pop(context);
-            });
-          },
+    return Padding(
+      padding: EdgeInsets.only(top: 10.0),
+      child: Scaffold(
+        backgroundColor: AppColors.homeScreenColor,
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Future.delayed(Duration.zero, () {
+                Navigator.pop(context);
+              });
+            },
+          ),
+          backgroundColor: AppColors.bgColor,
+          elevation: 0,
         ),
-        backgroundColor: AppColors.bgColor,
-        elevation: 0,
-      ),
-      body: Body(
-        product: product,
+        body: Body(
+          product: product,
+        ),
       ),
     );
   }

@@ -1,10 +1,13 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart';
-import 'package:officecafeteria/models/serverModels/myInfo.dart';
-import 'package:officecafeteria/utilities/endpoints.dart';
 
+import '../models/serverModels/myInfo.dart';
+import '../utilities/endpoints.dart';
+
+// Instance of Flutter Secure Storage
 final secureStorage = FlutterSecureStorage();
-Future<String> aboutMe({String jwtToken}) async {
+
+Future<List<String>> aboutMe({String jwtToken}) async {
   Map<String, String> headers = {
     "Content-type": "application/json",
     "x-access-token": "$jwtToken",
@@ -20,7 +23,7 @@ Future<String> aboutMe({String jwtToken}) async {
   } else {
     print('User GET Failed');
   }
-  return statusCode;
+  return [statusCode, myInfo.registrationId];
 }
 
 void storeUserInformation(MyInfo myInfo) async {

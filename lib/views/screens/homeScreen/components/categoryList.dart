@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:officecafeteria/providers/categoriesProvider.dart';
-import 'package:officecafeteria/utilities/colors.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../providers/changeNotifiers/categoriesProvider.dart';
+import '../../../../utilities/colors.dart';
 
 class CategoryList extends StatefulWidget {
   @override

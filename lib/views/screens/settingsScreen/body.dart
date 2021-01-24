@@ -1,13 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:officecafeteria/views/common/authWrapper.dart';
 import 'package:officecafeteria/views/screens/settingsScreen/components/userInfo.dart';
 import 'package:officecafeteria/views/screens/settingsScreen/profile_menu.dart';
-
-import 'package:provider/provider.dart';
-
-import '../../../main.dart';
 
 final secureStorage = FlutterSecureStorage();
 
@@ -37,15 +33,15 @@ class _BodyState extends State<Body> {
           ),
           UserInfo(
             info: 'organization',
-            icon: "assets/user.svg",
+            icon: "assets/group.svg",
           ),
           UserInfo(
             info: 'registrationId',
-            icon: "assets/user.svg",
+            icon: "assets/face-detection.svg",
           ),
           UserInfo(
             info: 'employeeId',
-            icon: "assets/user.svg",
+            icon: "assets/touch.svg",
           ),
           ProfileMenu(
             text: "Log Out",

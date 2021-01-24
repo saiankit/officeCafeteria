@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:officecafeteria/providers/cartProvider.dart';
+import 'package:officecafeteria/providers/changeNotifiers/cartProvider.dart';
 import 'package:officecafeteria/utilities/colors.dart';
 import 'package:officecafeteria/views/screens/paymentScreen/paymentScreen.dart';
 import 'package:provider/provider.dart';
 
-import '../../../providers/cartProvider.dart';
+import 'components/deleteIcon.dart';
 import 'components/shoppingCartCard.dart';
 
 class ShoppingCartScreen extends StatefulWidget {
@@ -16,123 +16,78 @@ class ShoppingCartScreen extends StatefulWidget {
 class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
   @override
   Widget build(BuildContext context) {
-    void clearCart(BuildContext context, CartProvider cartProvider) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Clear List"),
-            content: Text("Are you sure you want to clear the items in Cart ?"),
-            actions: <Widget>[
-              FlatButton(
-                child: Text(
-                  'Yes',
-                  style: TextStyle(
-                    color: Colors.red,
-                  ),
-                ),
-                onPressed: () {
-                  cartProvider.clearItems();
-                  Future.delayed(Duration.zero, () {
-                    Navigator.pop(context);
-                  });
-                },
-              ),
-              FlatButton(
-                child: new Text("No"),
-                onPressed: () {
-                  Future.delayed(Duration.zero, () {
-                    Navigator.pop(context);
-                  });
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
-
     return Consumer<CartProvider>(
-      builder: (context, cartProvider, _) => Scaffold(
-        backgroundColor: AppColors.homeScreenColor,
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: AppColors.secondaryColor,
-            ),
-            onPressed: () {
-              Future.delayed(Duration.zero, () {
-                Navigator.pop(context);
-              });
-            },
-          ),
-          elevation: 0,
-          title: Text(
-            "My Tray",
-            style: TextStyle(color: Colors.black),
-          ),
-          actions: [
-            cartItemList.length != 0
-                ? IconButton(
-                    icon: Icon(
-                      Icons.delete_sharp,
-                      color: AppColors.secondaryColor,
-                    ),
-                    onPressed: () {
-                      clearCart(context, cartProvider);
-                    },
-                  )
-                : Container()
-          ],
+      builder: (context, cartProvider, _) => Padding(
+        padding: EdgeInsets.only(top: 10.0),
+        child: Scaffold(
           backgroundColor: AppColors.homeScreenColor,
-        ),
-        body: Stack(
-          children: [
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: cartItemList.length,
-              itemBuilder: (context, index) => ShoppingCartCard(
-                cartItem: cartItemList[index],
+          appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: AppColors.secondaryColor,
               ),
+              onPressed: () {
+                Future.delayed(Duration.zero, () {
+                  Navigator.pop(context);
+                });
+              },
             ),
-            cartItemList.length != 0
-                ? Column(
-                    children: [
-                      Spacer(),
-                      CheckoutRow(),
-                    ],
-                  )
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Spacer(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height / 3,
-                            width: MediaQuery.of(context).size.width / 1.5,
-                            child: SvgPicture.asset("assets/nothing.svg"),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            "Nothing's here !!",
-                            style: Theme.of(context).textTheme.headline5,
-                          ),
-                          Text(
-                            "Order Something",
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                    ],
-                  )
-          ],
+            elevation: 0,
+            title: Text(
+              "My Tray",
+              style: TextStyle(color: Colors.black),
+            ),
+            actions: [cartItemList.length != 0 ? ClearCartIcon() : Container()],
+            backgroundColor: AppColors.homeScreenColor,
+          ),
+          body: Stack(
+            children: [
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: cartItemList.length,
+                itemBuilder: (context, index) => ShoppingCartCard(
+                  cartItem: cartItemList[index],
+                ),
+              ),
+              cartItemList.length != 0
+                  ? Column(
+                      children: [
+                        Spacer(),
+                        CheckoutRow(),
+                      ],
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Spacer(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height / 3,
+                              width: MediaQuery.of(context).size.width / 1.5,
+                              child: SvgPicture.asset("assets/nothing.svg"),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              "Nothing's here !!",
+                              style: Theme.of(context).textTheme.headline5,
+                            ),
+                            Text(
+                              "Order Something",
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                          ],
+                        ),
+                        Spacer(),
+                      ],
+                    )
+            ],
+          ),
         ),
       ),
     );

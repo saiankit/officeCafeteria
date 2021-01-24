@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:officecafeteria/providers/paymentProvider.dart';
+import 'package:officecafeteria/providers/changeNotifiers/paymentProvider.dart';
 import 'package:officecafeteria/utilities/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -32,22 +32,22 @@ class _PaymentOptionState extends State<PaymentOption> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             color: widget.text == "Cash"
                 ? paymentProvider.cash
-                    ? Colors.lightGreenAccent
+                    ? Color(0xffbaf1a1)
                     : Color(0xFF5F6F9)
                 : widget.text == "Credit Card"
                     ? paymentProvider.creditCard
-                        ? Colors.lightGreenAccent
+                        ? Color(0xffbaf1a1)
                         : Color(0xFF5F6F9)
                     : widget.text == "Net Banking"
                         ? paymentProvider.netBanking
-                            ? Colors.lightGreenAccent
+                            ? Color(0xffbaf1a1)
                             : Color(0xFF5F6F9)
                         : widget.text == "UPI"
                             ? paymentProvider.upi
-                                ? Colors.lightGreenAccent
+                                ? Color(0xffbaf1a1)
                                 : Color(0xFF5F6F9)
                             : paymentProvider.upi
-                                ? Colors.lightGreenAccent
+                                ? Color(0xffbaf1a1)
                                 : Color(0xFF5F6F9),
             onPressed: () {
               if (widget.text == "Cash") {
