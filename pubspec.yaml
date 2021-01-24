@@ -16,6 +16,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   flutter_svg:
   blobs:
+  date_format:
   provider:
   google_fonts:
   flutter_secure_storage:

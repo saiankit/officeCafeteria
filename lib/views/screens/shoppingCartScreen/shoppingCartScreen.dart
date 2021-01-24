@@ -6,9 +6,6 @@ import 'package:officecafeteria/views/screens/paymentScreen/paymentScreen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/cartProvider.dart';
-import '../../../providers/cartProvider.dart';
-import '../../../providers/cartProvider.dart';
-import '../../../providers/cartProvider.dart';
 import 'components/shoppingCartCard.dart';
 
 class ShoppingCartScreen extends StatefulWidget {
@@ -113,7 +110,11 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SvgPicture.asset("assets/nothing.svg"),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height / 3,
+                            width: MediaQuery.of(context).size.width / 1.5,
+                            child: SvgPicture.asset("assets/nothing.svg"),
+                          ),
                         ],
                       ),
                       Column(

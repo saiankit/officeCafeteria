@@ -72,6 +72,7 @@ class _PaymentOptionState extends State<PaymentOption> {
                   children: [
                     Text(
                       widget.text,
+                      style: Theme.of(context).textTheme.subtitle2,
                     ),
                   ],
                 ),

@@ -6,6 +6,7 @@ import 'package:officecafeteria/utilities/endpoints.dart';
 Future<String> bookOrder({
   String registrationId,
   List<CartItem> cartList,
+  String takeAwayTime,
 }) async {
   String urlPOSTorder = API.bookOrder;
   Map<String, String> headers = {"Content-type": "application/json"};
@@ -13,7 +14,8 @@ Future<String> bookOrder({
   var res = jsonEncode(orderProducts);
   String json = '''{
     "registrationId": "$registrationId",
-    "orderProducts" : $res
+    "orderProducts" : $res,
+    "takeAwayTime": "$takeAwayTime"
 }''';
 
   var response = await post(urlPOSTorder, headers: headers, body: json);

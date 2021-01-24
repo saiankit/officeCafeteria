@@ -6,6 +6,7 @@ List<CartItem> cartItemList = [];
 class CartProvider extends ChangeNotifier {
   int cartItems = 0;
   int totalAmount = 0;
+
   clearItems() {
     cartItemList = [];
     cartItems = 0;

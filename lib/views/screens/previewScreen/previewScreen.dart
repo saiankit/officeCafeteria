@@ -6,6 +6,7 @@ import 'package:officecafeteria/services/aboutMe.dart';
 import 'package:officecafeteria/services/registerUser.dart';
 import 'package:officecafeteria/views/common/loadingWidget.dart';
 import 'package:officecafeteria/views/common/submitButton.dart';
+import 'package:officecafeteria/views/screens/successScreen/successScreen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/userDataProvider.dart';
@@ -96,7 +97,7 @@ class PreviewScreen extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => HomeScreen(),
+                                    builder: (context) => SuccessScreen(),
                                   ),
                                 );
                               });
