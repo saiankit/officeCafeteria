@@ -62,8 +62,11 @@ class _UserDetailsState extends State<UserDetails> {
                       child: Row(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: const Text("Upload your ID Card"),
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(
+                              "Upload your ID Card",
+                              style: Theme.of(context).textTheme.subtitle2,
+                            ),
                           ),
                         ],
                       ),
