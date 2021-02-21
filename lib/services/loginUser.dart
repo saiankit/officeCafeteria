@@ -7,6 +7,7 @@ Future<List<String>> loginUser({
   String password,
 }) async {
   Map<String, String> headers = {"Content-type": "application/json"};
+  print(email);
   String json = '''
   {
     "email": "$email",
@@ -14,10 +15,12 @@ Future<List<String>> loginUser({
   }
 ''';
   Response response = await post(API.loginUser, headers: headers, body: json);
-
+  String statusCode = response.statusCode.toString();
+  print(statusCode);
+  print(response.body);
   LoginResponse mapped = loginResponseFromJson(response.body);
 
-  String statusCode = response.statusCode.toString();
+  // String statusCode = response.statusCode.toString();
   print('User POST request Status Code : ' + statusCode);
   if (statusCode == '201') {
     print('User POST successfull');
