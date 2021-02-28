@@ -14,7 +14,6 @@
 
 ------
 <h4 align = "center" >Feature Set <h4>
-------
 
 | ![1](Screenshots/1.png)   |  ![1](Screenshots/2.png)  |  ![1](Screenshots/3.png)  |
 |---|---|---|
